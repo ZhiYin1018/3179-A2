@@ -1,164 +1,1534 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Marriage Rate in Malaysia (Interactive)</title>
+  <meta charset="utf-8" />
+  <title>Marriage Rate in Malaysia (Female Focus)</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #cfeefb;
-      font-family: Arial, sans-serif;
-    }
-    h2 {
-      text-align: center;
-      margin: 10px 0;
-      color: #000;
-    }
-    #controls {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    #vis {
-      width: 100%;
-      height: 85vh;
-    }
-    select, input[type=range] {
-      font-size: 15px;
-      padding: 5px 10px;
-      border-radius: 5px;
-      border: 1px solid #aaa;
-      margin: 0 10px;
-    }
-    label {
-      font-weight: bold;
-    }
+/* ====== PAGE LAYOUT STYLE (1080p MAX) ====== */
+/* ===============================
+   GLOBAL PAGE LAYOUT
+================================= */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #dcdcdc; /* Light grey page sides */
+}
+
+.main-container {
+  max-width: 1600px;
+  width: 100%;
+  background-color: #FFF8DC; /* 🌼 Cornsilk tone */
+  margin: 40px auto;
+  padding: 40px 50px;
+  border-radius: 12px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border: none;
+}
+
+/* ===============================
+   TYPOGRAPHY
+================================= */
+
+/* Main title */
+#mainTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  text-align: center;
+  color: #5A3E00;
+  margin: 10px 0 8px 0;
+  letter-spacing: 1px;
+}
+
+/* Subtitle */
+#subTitle {
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  font-size: 20px;
+  color: #6B5200;
+  margin-bottom: 35px;
+  letter-spacing: 0.3px;
+}
+
+/* Section titles */
+h2 {
+  text-align: center;
+  color: #111;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 30px;
+  margin: 60px 0 15px 0;
+  letter-spacing: 0.3px;
+}
+
+/* Subsection titles */
+h3 {
+  text-align: center;
+  color: #111;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+/* Text and paragraph styling */
+p, label, button, #analysisSection, #areaText, #lineChartText, #heatmapText {
+  font-family: Arial, sans-serif;
+  color: #2E2E2E;
+  line-height: 1.7;
+  font-size: 15.5px;
+}
+
+/* ===============================
+   VISUALISATION + CARD STYLE
+================================= */
+
+.mapBox,
+#areaChart,
+#maleMultiLineChart,
+#femaleMultiLineChart,
+#genderDiffHeatmap,
+#waffleChart,
+#analysisSection {
+  background-color: #FFFFFF;
+border: 1px solid #ccc;
+  border-radius: 10px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+}
+
+/* Shared layout for side-by-side charts */
+#mapContainer,
+#lineChartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px auto 40px auto;
+  max-width: 1600px;
+}
+
+.mapBox {
+  flex: 1;
+  min-width: 650px;
+  max-width: 800px;
+}
+
+/* Center all charts */
+#areaChartContainer,
+#genderDiffHeatmap,
+#waffleChart,
+#maleMultiLineChart,
+#femaleMultiLineChart,
+#maleVis,
+#femaleVis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* ===============================
+   AREA CHART + FINDINGS BOX
+================================= */
+#areaChartContainer {
+  display: block;
+  text-align: center;
+  gap: 25px;
+  max-width: 1600px;
+  margin: 100px auto;
+}
+
+#areaChart {
+  width: 100%;
+  max-width: 1600px; 
+  margin: 0 auto 25px auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+
+#areaText,
+#lineChartText,
+#heatmapText,
+#analysisSection {
+  max-width: 1600px;  /* ✅ uniform width */
+  margin: 25px auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ===============================
+   HEATMAP + WAFFLE
+================================= */
+#genderDiffHeatmap,
+#waffleChart {
+  margin: 40px auto;
+  max-width: 1600px;
+}
+
+/* Column layout for heatmap findings */
+#heatmapText div {
+  column-count: 3;
+  column-gap: 50px;
+  text-align: justify;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Responsive behavior */
+@media (max-width: 1600px) {
+  #areaText,
+  #lineChartText,
+  #heatmapText,
+  #analysisSection {
+    max-width: 100%;
+    padding: 20px;
+  }
+  #heatmapText div {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 1000px) {
+  #areaText div,
+  #lineChartText div,
+  #heatmapText div,
+  #analysisSection div {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 700px) {
+  #areaText div,
+  #lineChartText div,
+  #heatmapText div,
+  #analysisSection div {
+    column-count: 1;
+  }
+}
+
+
+@media (max-width: 1000px) {
+  #areaChartContainer {
+    padding: 0 10px;
+  }
+  #areaChart {
+    max-width: 100%;
+  }
+}
+
+/* ===============================
+   CHECKBOX + BUTTON CONTROLS
+================================= */
+#ageCheckboxContainer {
+  text-align: center;
+  margin: 20px 0 10px 0;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.checkbox-group label {
+  background: #f7f5ff;
+  border: 1px solid #bbb;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+}
+
+/* Select All button */
+#selectAllBtn {
+  background-color: #ddd;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+#selectAllBtn:hover,
+button:hover {
+  background-color: #e5cc80;
+  border-color: #d8b74a;
+  color: #3B2C00;
+}
+
+/* Consistent visualisation card style */
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ===============================
+   MISC ALIGNMENT
+================================= */
+h2, h3, #controls, #ageCheckboxContainer,
+#zoomInBtn, #zoomOutBtn, #resetZoomBtn {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tooltip, legend, and axis font consistency */
+.vg-tooltip,
+.vega-legend,
+.vega-axis,
+.vg-tooltip-content {
+  font-family: Arial, sans-serif !important;
+  font-size: 13px !important;
+  color: #3B2C00 !important;
+}
+
   </style>
 </head>
 <body>
-  <h2 id="chartTitle">Female vs Male Marriage Rate in Malaysia, 2022 (All Ages)</h2>
+  <div class="main-container">
+    <h1 id="mainTitle">Marriage Trends in Malaysia, 2017–2022</h1>
+<p id="subTitle">An analytical overview of marriage rates across gender, age, and regions</p>
 
-  <div id="controls">
-    <label for="sexSelect">Gender:</label>
-    <select id="sexSelect">
-      <option value="female" selected>Female</option>
-      <option value="male">Male</option>
-    </select>
+    <!-- All your charts, maps, titles, controls go here -->
+    <h2 id="chartTitle">Female Marriage Rate in Malaysia, 2022 (All Ages)</h2>
 
-    <label for="yearSlider">Year:</label>
-    <input type="range" id="yearSlider" min="2017" max="2022" value="2022" step="1" />
-    <span id="yearLabel">2022</span>
-  </div>
+    <div id="controls">
+      <label for="yearSlider">Year:</label>
+      <input type="range" id="yearSlider" min="2017" max="2022" value="2022" step="1" />
+      <span id="yearLabel" class="small">2022</span>
+    </div>
 
+    <div style="text-align:center; margin:10px 0;">
+      <button id="zoomInBtn">Zoom In (+)</button>
+      <button id="zoomOutBtn">Zoom Out (−)</button>
+      <button id="resetZoomBtn">Reset View</button>
+    </div>
+
+    <div id="mapContainer">
+      <div class="mapBox">
+        <h3 style="text-align:center;">Male Marriage Rate</h3>
+        <div id="maleVis"></div>
+      </div>
+      <div class="mapBox">
+        <h3 style="text-align:center;">Female Marriage Rate</h3>
+        <div id="femaleVis"></div>
+      </div>
+    </div>
   <div id="vis"></div>
 
-  <script type="text/javascript">
-    const drawChart = (selectedSex, selectedYear) => {
-      // update title
+<!-- ✅ Title closer to area chart -->
+<h2 style="margin-bottom: 10px; font-family:'Times New Roman'; color:#2e2e2e; text-align:center;">
+  Number of Marriages Registered in Malaysia (2017–2022)
+</h2>
+
+<!-- ✅ Area Chart -->
+<div id="areaChartContainer" style="text-align:center; margin:20px auto; max-width:1600px;">
+  <div id="areaChart" class="card" style="margin:20px auto;"></div>
+</div>
+
+<!-- 🟣 AREA CHART FINDINGS -->
+<div id="areaText" class="card" style="
+  max-width: 1600px;
+  margin: 20px auto;
+  padding: 20px 40px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+">
+  <h3 style="text-align:center; font-family:'Times New Roman'; font-weight:bold; color:#5A3E00; font-size:18px; margin-bottom:15px;">
+    Findings
+  </h3>
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: left;
+  ">
+    <p style='margin:0'>
+      Marriages increased steadily until 2019.<br>
+      The pandemic in 2020 caused a sharp decline,<br>
+      as ceremonies were postponed nationwide.<br>
+      Rates began to recover by 2021 when<br>
+      restrictions eased across most regions.
+    </p>
+    <p style='margin:0'>
+      By 2022, national figures nearly returned<br>
+      to pre-pandemic levels. The overall trend<br>
+      shows marriage rates remain resilient,<br>
+      rebounding once normalcy resumed<br>
+      after nationwide lockdowns ended.
+    </p>
+    <p style='margin:0'>
+      The long-term pattern suggests stable<br>
+      cultural traditions adapting to modern<br>
+      challenges, with Malaysians continuing<br>
+      to value marriage despite temporary<br>
+      external disruptions and uncertainty.
+    </p>
+  </div>
+</div>
+
+
+    <h2>Marriage Rate by Age Group (2017–2022)</h2>
+    <div id="ageCheckboxContainer">
+      <div class="checkbox-group" id="ageCheckboxGroup"></div>
+      <button id="selectAllBtn">Clear All</button>
+    </div>
+
+<div id="lineChartContainer">
+  <div class="mapBox">
+    <h3 style="text-align:center;">Male Marriage Rate by Age Group</h3>
+    <div id="maleMultiLineChart"></div>
+  </div>
+  <div class="mapBox">
+    <h3 style="text-align:center;">Female Marriage Rate by Age Group</h3>
+    <div id="femaleMultiLineChart"></div>
+  </div>
+</div>
+
+<!-- 🟡 MULTILINE CHART FINDINGS -->
+<div id="lineChartText" class="card" style="
+  max-width: 1600px;
+  margin: 20px auto;
+  padding: 20px 40px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+">
+  <h3 style="text-align:center; font-family:'Times New Roman'; font-weight:bold; color:#5A3E00; font-size:18px; margin-bottom:15px;">
+    Findings
+  </h3>
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: left;
+  ">
+    <p style='margin:0'>
+      From 2017 to 2022, the 25–29 age<br>
+      group consistently led marriage rates<br>
+      across genders. Women’s marriage peaks<br>
+      appeared earlier, while men married<br>
+      later around 30–34 years old.
+    </p>
+    <p style='margin:0'>
+      In 2020, rates dropped in all<br>
+      age groups due to lockdowns, yet<br>
+      recovery was visible by 2021 as<br>
+      ceremonies resumed. Many young<br>
+      adults postponed weddings for stability.
+    </p>
+    <p style='margin:0'>
+      These shifts reveal balance between<br>
+      tradition and modern lifestyles.<br>
+      Malaysians increasingly prioritize career<br>
+      growth and education before marriage,<br>
+      reflecting evolving social values.
+    </p>
+  </div>
+</div>
+
+
+
+
+<h2>Gender Difference Heatmap (Male − Female)</h2>
+<div id="genderDiffHeatmap" class="mapBox"></div>
+
+
+<!-- 🔵 HEATMAP FINDINGS -->
+<div id="heatmapText" class="card" style="
+  max-width: 1600px;
+  margin: 20px auto;
+  padding: 20px 40px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+">
+  <h3 style="text-align:center; font-family:'Times New Roman'; font-weight:bold; color:#5A3E00; font-size:18px; margin-bottom:15px;">
+    Findings
+  </h3>
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: left;
+  ">
+    <p style='margin:0'>
+      The heatmap shows women marry younger,<br>
+      often in their early twenties, while<br>
+      men tend to marry later, after age 30.<br>
+      This reflects enduring cultural norms<br>
+      but changing life priorities.
+    </p>
+    <p style='margin:0'>
+      After 2020, more women aged 35–39<br>
+      began marrying, showing early marriage<br>
+      is no longer a main priority.<br>
+      Women now focus more on career<br>
+      and stability before families.
+    </p>
+    <p style='margin:0'>
+      Around ages 30–34, both genders<br>
+      align more closely, marking shared<br>
+      readiness and planning for marriage.<br>
+      Social attitudes continue evolving<br>
+      toward mutual timing and balance.
+    </p>
+  </div>
+</div>
+
+<!-- 🔽 Optional: make it responsive -->
+<style>
+  @media (max-width: 1000px) {
+    #heatmapText div {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 700px) {
+    #heatmapText div {
+      column-count: 1;
+    }
+  }
+</style>
+
+    <!-- <h2>Female Marriage Rate (All Ages) by State — Waffle Chart</h2>
+    <div id="waffleChart" class="mapBox"></div> -->
+  <!-- </div> -->
+<!-- 🔶 ANALYSIS SUMMARY -->
+<div id="analysisSection" class="card" style="
+  max-width: 1600px;
+  margin: 40px auto;
+  padding: 20px 40px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+">
+  <h3 style="text-align:center; font-family:'Times New Roman'; font-weight:bold; font-size:18px; color:#5A3E00; margin-bottom:15px;">
+    Analysis Summary
+  </h3>
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: left;
+  ">
+    <p style='margin:0'>
+      Between 2017 and 2022, Malaysia’s<br>
+      marriage landscape changed with cultural<br>
+      and economic influences. Marriage rates<br>
+      dipped in 2020 during lockdowns, yet<br>
+      rebounded swiftly by 2021.
+    </p>
+    <p style='margin:0'>
+      Female marriage rates remained regionally<br>
+      distinct — Kelantan and Terengganu higher,<br>
+      urban states like Kuala Lumpur lower.<br>
+      Among males, the 25–34 range stayed<br>
+      most common for marriages.
+    </p>
+    <p style='margin:0'>
+      Overall, Malaysia’s marriage trends<br>
+      reflect recovery and continued diversity<br>
+      in family formation, shaped by<br>
+      modern priorities and traditional<br>
+      expectations coexisting together.
+    </p>
+  </div>
+</div>
+
+</body>
+
+
+  <script>
+    const STATE_AGE_CSV = "https://raw.githubusercontent.com/ZhiYin1018/3179/refs/heads/main/data/marriages_state_age.csv";
+    const TOPOJSON_URL  = "https://raw.githubusercontent.com/ZhiYin1018/3179/refs/heads/main/data/malaysia-states.topojson";
+    const FEMALE_CSV    = "https://raw.githubusercontent.com/ZhiYin1018/3179-W10-Homework/refs/heads/main/data/marriages_age.csv";
+    const TOTALS_CSV    = "https://raw.githubusercontent.com/ZhiYin1018/3179-W10-Homework/refs/heads/main/data/marriage_all_gender.csv";
+  
+
+
+    const allAges = ["< 20","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65+"];
+
+      const drawMap = (selectedSex, selectedYear, containerId) => {
       document.getElementById("chartTitle").textContent =
         `${selectedSex.charAt(0).toUpperCase() + selectedSex.slice(1)} Marriage Rate in Malaysia, ${selectedYear} (All Ages)`;
 
-      // pink for female, blue for male
       const colorRange = selectedSex === "female"
-        ? ["#fde0dd", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"] // pink tones
-        : ["#deebf7", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#084594"]; // blue tones
+        ? ["#fde0dd", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"]
+        : ["#deebf7", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#084594"];
 
       const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "description": "Marriage Rate in Malaysia (by Gender & Year)",
-        "width": "container",
-        "height": "container",
+        "width": 900,
+        "height": 420,
         "background": "#cfeefb",
-        "projection": {
-          "type": "conicEqualArea",
-          "center": [108, 4],
-          "parallels": [1, 7],
-          "scale": 4500
-        },
+"projection": {
+  "type": "mercator",
+  "center": [111, 2.5],
+  "scale": currentZoom,
+  "translate": [currentPan.x, currentPan.y]
+},
+
+
         "layer": [
+          { "data": { "sphere": true }, "mark": { "type": "geoshape", "fill": "#cfeefb" } },
           {
-            "data": {"sphere": true},
-            "mark": {"type": "geoshape", "fill": "#cfeefb"}
+            "data": { "graticule": { "step": [5, 5] } },
+            "mark": { "type": "geoshape", "stroke": "#a0a8b0", "strokeWidth": 0.45, "opacity": 0.8 }
           },
           {
-            "data": {
-              "url": "https://raw.githubusercontent.com/ZhiYin1018/3179/refs/heads/main/data/marriages_state_age.csv",
-              "format": {"type": "csv"}
-            },
+            "data": { "graticule": { "step": [90, 90] } },
+            "mark": { "type": "geoshape", "stroke": "#8a949e", "strokeWidth": 1 }
+          },
+          {
+            "data": { "url": STATE_AGE_CSV, "format": { "type": "csv" } },
             "transform": [
-              {"filter": `datum.year == ${selectedYear} && datum.sex == '${selectedSex}' && datum.age == 'all'`},
+              { "calculate": "toNumber(datum.year || (substring(datum.date,0,4)))", "as": "year" },
+              { "filter": `datum.year == ${selectedYear}` },
+            { "filter": `datum.sex == '${selectedSex}'` },  
+              { "filter": "datum.age == 'all'" },
               {
                 "lookup": "state",
                 "from": {
-                  "data": {
-                    "url": "https://raw.githubusercontent.com/ZhiYin1018/3179/refs/heads/main/data/malaysia-states.topojson",
-                    "format": {"type": "topojson", "feature": "gadm41_MYS_1"}
-                  },
+                  "data": { "url": TOPOJSON_URL, "format": { "type": "topojson", "feature": "gadm41_MYS_1" } },
                   "key": "properties.NAME_1"
                 },
                 "as": "geo"
               },
-              {"filter": "datum.geo != null"}
+              { "filter": "datum.geo != null" }
             ],
-            "mark": {"type": "geoshape", "stroke": "#fff", "strokeWidth": 0.6},
+            "mark": { "type": "geoshape", "stroke": "#fff", "strokeWidth": 0.6 },
             "encoding": {
-              "shape": {"field": "geo", "type": "geojson"},
+              "shape": { "field": "geo", "type": "geojson" },
               "color": {
                 "field": "rate",
                 "type": "quantitative",
-                "scale": {
-                  "type": "threshold",
-                  "domain": [18, 22, 25, 28, 32],
-                  "range": colorRange
-                },
-                "legend": {
-                  "title": "Marriage Rate (per 1000)",
-                  "titleFont": "Arial",
-                  "labelFont": "Arial",
-                  "orient": "top-right",
-                  "direction": "horizontal",
-                  "symbolType": "square",
-                  "padding": 8
-                }
+                "scale": { "type": "threshold", "domain": [18, 22, 25, 28, 32], "range": colorRange },
+"legend": {
+  "title": "Marriage Rate (per 1000)",
+  "orient": "bottom-right",
+  "direction": "horizontal",
+  "titleFont": "Arial",
+  "titleFontSize": 13,
+  "labelFont": "Arial",
+  "labelFontSize": 12,
+  "titleColor": "#4b3b00",
+  "labelColor": "#4b3b00"
+}
               },
               "tooltip": [
-                {"field": "state", "type": "nominal", "title": "State"},
-                {"field": "rate", "type": "quantitative", "title": `${selectedSex.charAt(0).toUpperCase() + selectedSex.slice(1)} Marriage Rate`, "format": ".1f"},
-                {"field": "year", "type": "ordinal", "title": "Year"}
+                { "field": "state", "title": "State" },
+                { "field": "rate", "title": "Marriage Rate" },
+                { "field": "year", "title": "Year" }
               ]
             }
-          }
-        ],
-        "config": {
-          "style": {"tooltip": {"font": "Arial", "fontSize": 13}}
-        }
-      };
+          },
 
-      vegaEmbed('#vis', spec, {renderer: "svg", actions: false}).catch(console.error);
+    // === ANNOTATION LINES ===
+// === ANNOTATION LINES ===
+{
+  "data": {
+    "values": [
+      // ===== MALE: line ends match the male TEXT coords =====
+      // 2017
+      { "year": 2017, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104.6, "lat_end": 3.1 }, // Negeri Sembilan → text (103.2, 3.1)
+{ "year": 2017, "sex": "male", "lon": 117.0, "lat": 5.8, "lon_end": 113.5, "lat_end": 4.5 },
+
+      // 2018
+      { "year": 2018, "sex": "male", "lon": 102.2, "lat": 2.2, "lon_end": 104.3, "lat_end": 2.4 }, // Melaka → text (103.8, 2.4)
+{ "year": 2018, "sex": "male", "lon": 117.0, "lat": 5.8, "lon_end": 113.1, "lat_end": 4.5 },
+
+      // 2019
+      { "year": 2019, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104, "lat_end": 3.1 }, // Negeri Sembilan → text (103.2, 3.1)
+{ "year": 2019, "sex": "male", "lon": 117.0, "lat": 5.8, "lon_end": 114, "lat_end": 4.5 },
+
+      // 2020
+      { "year": 2020, "sex": "male", "lon": 100.2, "lat": 6.5, "lon_end": 101.7, "lat_end": 6.7 }, // Perlis → text (101.8, 6.7)
+{ "year": 2020, "sex": "male", "lon": 117.0, "lat": 6, "lon_end": 113, "lat_end": 4 },
+
+      // 2021
+      { "year": 2021, "sex": "male", "lon": 102.4, "lat": 6.1, "lon_end": 104.8, "lat_end": 6.45 }, // Kelantan → text (104.9, 6.45)
+      { "year": 2021, "sex": "male", "lon": 103.3, "lat": 5.3, "lon_end": 104.7, "lat_end": 5.2 },  // Terengganu → text (104.8, 5.2)
+
+      // 2022
+      { "year": 2022, "sex": "male", "lon": 102.4, "lat": 6.1, "lon_end": 104.9, "lat_end": 6.3 },  // Kelantan → text (105.0, 6.3)
+      { "year": 2022, "sex": "male", "lon": 103.5, "lat": 2.0, "lon_end": 104.7, "lat_end": 2.2 },  // Johor → text (104.8, 2.2)
+
+      // ===== FEMALE: keep lines aligned to female TEXT coords =====
+      // 2017
+      { "year": 2017, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.0, "lat_end": 6.3 }, // Kelantan → text (104.0, 6.3)
+      { "year": 2017, "sex": "female", "lon": 101.7, "lat": 2.9, "lon_end": 103.6, "lat_end": 3.2 }, // Putrajaya → text (103.6, 3.2)
+
+      // 2018
+      { "year": 2018, "sex": "female", "lon": 102.0, "lat": 6.0, "lon_end": 104.2, "lat_end": 5.2 }, // Kelantan → text (104.2, 5.2)
+      { "year": 2018, "sex": "female", "lon": 103.0, "lat": 5.0, "lon_end": 104.2, "lat_end": 5.2 }, // Terengganu → text (104.0, 5.2)
+      { "year": 2018, "sex": "female", "lon": 100.4, "lat": 6.2, "lon_end": 103.4, "lat_end": 6.5 }, // Kedah → text (102.2, 6.5)
+
+      // 2019
+      { "year": 2019, "sex": "female", "lon": 100.2, "lat": 6.6, "lon_end": 102, "lat_end": 6.8 }, // Perlis → text (102.1, 6.8)
+      { "year": 2019, "sex": "female", "lon": 101.7, "lat": 2.9, "lon_end": 104, "lat_end": 3.1 }, // Putrajaya → text (103.5, 3.1)
+
+      // 2020
+      { "year": 2020, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.3, "lat_end": 6.2 }, // Kelantan → text (104.0, 6.2)
+{ "year": 2020, "sex": "female", "lon": 117.0, "lat": 5.7, "lon_end": 113.8, "lat_end": 4.4 },
+
+      // 2021
+      { "year": 2021, "sex": "female", "lon": 100.4, "lat": 6.2, "lon_end": 103.9, "lat_end": 6.47 }, // Kedah → text (102.0, 6.4)
+{ "year": 2021, "sex": "female", "lon": 117.0, "lat": 5.8, "lon_end": 108.6, "lat_end": 4.8 },
+
+      // 2022
+      { "year": 2022, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 103.9, "lat_end": 6.2 }, // Kelantan → text (104.0, 6.2)
+{ "year": 2022, "sex": "female", "lon": 117.0, "lat": 5.8, "lon_end": 111.5, "lat_end": 4.4 },
+    ]
+  },
+  "transform": [
+    { "filter": `datum.year == ${selectedYear}` },
+    { "filter": `datum.sex == '${selectedSex}'` }
+  ],
+  "mark": {
+    "type": "rule",
+    "stroke": selectedSex === "male" ? "#003366" : "black",
+    "strokeWidth": 1.2
+  },
+  "encoding": {
+    "longitude": { "field": "lon", "type": "quantitative" },
+    "latitude": { "field": "lat", "type": "quantitative" },
+    "longitude2": { "field": "lon_end" },
+    "latitude2": { "field": "lat_end" }
+  }
+}
+,
+    // === ANNOTATION TEXTS ===
+    {
+"data": {
+  "values": [
+
+      { "year": 2017, "sex": "male", "text": "Negeri Sembilan’s men /n led Peninsular Malaysia./n Rate reached 31.8%", "lon": 105, "lat": 3.3 },
+    { "year": 2017, "sex": "male", "text": "Sabah’s male rate was the lowest./nIt stood at 14.9‰.", "lon": 107, "lat": 4.5 },
+
+    { "year": 2018, "sex": "male", "text": "Melaka’s registrations /nslowed slightly./nBacklogs delayed /nmany weddings", "lon": 105, "lat": 2.4 },
+    { "year": 2018, "sex": "male", "text": "Sabah’s male rate slipped again./nThe drop was around −0.5‰.", "lon": 106.8, "lat": 4.5 },
+
+    { "year": 2019, "sex": "male", "text": "Early marriage norms still persisted", "lon": 104.2, "lat": 3.1 },
+    { "year": 2019, "sex": "male", "text": "Rural migration reduced local weddings", "lon": 106.5, "lat": 4.5 },
+
+    { "year": 2020, "sex": "male", "text": "Perlis saw the steepest pandemic drop", "lon": 101.8, "lat": 6.7 },
+    { "year": 2020, "sex": "male", "text": "Sabah’s male rate stagnated./nMCO restrictions halted ceremonies.", "lon": 106.5, "lat": 4.5 },
+
+    { "year": 2021, "sex": "male", "text": "Kelantan was the fastest rebound nationwide.", "lon": 104.9, "lat": 6.45 },
+    { "year": 2021, "sex": "male", "text": "Terengganu’s rate jumped sharply./n Many postponed weddings resumed.", "lon": 104.8, "lat": 5.2 },
+
+    { "year": 2022, "sex": "male", "text": "Kelantan remained Malaysia’s highest male rate /n in 2011 & 2022", "lon": 105.0, "lat": 6.3 },
+    { "year": 2022, "sex": "male", "text": "Urban cost pressures /n caused the drop.", "lon": 104.8, "lat": 2.2 },
+
+    // === FEMALE ANNOTATIONS ===
+    { "year": 2017, "sex": "female", "text": "Kelantan’s women marry earlier./n Customs kept rates above 30%", "lon": 104.3, "lat": 6.3 },
+    { "year": 2017, "sex": "female", "text": "Civil service population is mostly single", "lon": 103.9, "lat": 3.2 },
+
+    { "year": 2018, "sex": "female", "text": "Terengganu and Kelantan led again./nFaith-based norms stayed strong.", "lon": 104.2, "lat": 5.2 },
+    { "year": 2018, "sex": "female", "text": "Kedah’s rise began early./nDigital registration helped rural growth.", "lon": 103.5, "lat": 6.5 },
+
+    { "year": 2019, "sex": "female", "text": "Perlis stayed steady.Many women returned home to register locally.", "lon": 102.1, "lat": 6.8 },
+    { "year": 2019, "sex": "female", "text": "Putrajaya’s modern lifestyle /ncause rate fell slightly.", "lon": 104, "lat": 3.7 },
+
+    { "year": 2020, "sex": "female", "text": "Kelantan adapted to MCO./nOnline solemnisation kept rates steady.", "lon": 104.5, "lat": 6.2 },
+    { "year": 2020, "sex": "female", "text": "Sabah’s rural lockdowns froze marriages./nRates plunged sharply.", "lon": 106, "lat": 4.4 },
+
+    { "year": 2021, "sex": "female", "text": "Kedah’s rural rebound was strong./nIt outpaced industrial states.", "lon": 104.0, "lat": 6.4 },
+    { "year": 2021, "sex": "female", "text": "Sabah’s female rates recovered slowly./nPost-MCO effects still lingered.", "lon": 106, "lat": 4.4 },
+
+    { "year": 2022, "sex": "female", "text": "Kelantan’s women remained highest./nTraditions kept rates near 32.3%", "lon": 104.0, "lat": 6.2 },
+    { "year": 2022, "sex": "female", "text": "Sabah improved slightly./nRegistry digitisation boosted access.", "lon": 106, "lat": 4.4 }
+  ]
+}
+,
+      "transform": [
+        { "filter": `datum.year == ${selectedYear}` },
+        { "filter": `datum.sex == '${selectedSex}'` }
+      ],
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 18,
+        "align": "left",
+        "color": selectedSex === "male" ? "#003366" : "#7a004f",
+        "dx": -4,
+        "dy": -2,
+        "lineBreak": "/n"
+      },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "text" }
+      }
+    }
+  ]
+};
+    vegaEmbed(containerId, spec, { renderer: "svg", actions: false, tooltip: { theme: "custom" } })
+    .then(res => {
+        // Apply custom tooltip styling
+        const tooltipEl = document.querySelector('.vg-tooltip');
+        if (tooltipEl) {
+        tooltipEl.style.fontFamily = 'Arial, sans-serif';
+        tooltipEl.style.fontSize = '12px';
+        tooltipEl.style.fontWeight = 'normal';
+        tooltipEl.style.color = '#000';
+        }
+    })
+    .catch(console.error);
     };
 
-    // Initial chart
-    let selectedSex = "female";
+ // === AREA CHART ===
+const drawAreaChart = (selectedYear) => {
+  const color = "purple";
+
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Malaysia Overall Marriage Rate (2017–2022) without Point Marker",
+"width": 1200,
+"height": 350,
+    "background": "white",
+    "data": {"url": TOTALS_CSV, "format": {"type": "csv"}},
+"transform": [
+  {"calculate": "toNumber(datum.date)", "as": "year"},
+  {"filter": "datum.year >= 2017 && datum.year <= 2022"}
+],
+
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "opacity": 0.3,
+          "interpolate": "monotone",
+          "color": color,
+          "animate": {"enter": {"duration": 1000}, "update": {"duration": 1000}}
+        },
+        
+        "encoding": {
+          "x": {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year",
+            "scale": {"domain": [2017, 2022]},
+            "axis": {"labelAngle": 0, "format": "d", "tickMinStep": 1}
+          },
+          "y": {
+            "field": "rate",
+            "type": "quantitative",
+            "title": "Marriage Rate (per 1000 people)",
+            "scale": {"zero": true, "nice": false},
+            "axis": {"format": ",.1f", "domain": true, "domainColor": "#000"}
+          },
+          "tooltip": [
+            {"field": "year", "title": "Year"},
+            {"field": "abs", "title": "Number of Marriages", "format": ","},
+            {"field": "rate", "title": "Marriage Rate"}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "line",
+          "interpolate": "monotone",
+          "color": color,
+          "strokeWidth": 2,
+          "animate": {"enter": {"duration": 1000}, "update": {"duration": 1000}}
+        },
+        "encoding": {
+          "x": {"field": "year", "type": "quantitative"},
+          "y": {"field": "rate", "type": "quantitative"}
+        }
+      }
+    ],
+"config": {
+  "style": { "tooltip": { "font": "Arial", "fontSize": 13 } },
+  "view": { "stroke": "transparent" },
+  "axis": {
+    "labelFont": "Arial",
+    "labelFontSize": 12,
+    "titleFont": "Arial",
+    "titleFontSize": 13,
+    "titleFontWeight": "bold",
+    "titleColor": "#333"
+  }
+}
+
+  };
+
+  vegaEmbed("#areaChart", spec, {renderer: "svg", actions: false}).catch(console.error);
+};
+
+    // ===============================
+//  Shared Y-axis + Multi-line charts
+// ===============================
+// Highest marriage rate across BOTH genders for the selected ages (2017–2022)
+async function getYMax(selectedAges) {
+  const res = await fetch(FEMALE_CSV);
+  const text = await res.text();
+
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return 10;
+
+  const headers = lines[0].split(",");
+  const idx = {
+    year: headers.indexOf("year"),
+    sex:  headers.indexOf("sex"),
+    age:  headers.indexOf("age"),
+    rate: headers.indexOf("rate")  // ✅ use 'rate' column, not 'abs'
+  };
+
+  let maxRate = 0;
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(",");
+    const year = Number(cols[idx.year]);
+    const age  = cols[idx.age];
+    const rate = Number(cols[idx.rate]); // ✅ true marriage rate
+
+    if (
+      year >= 2017 && year <= 2022 &&
+      age !== "all" &&
+      selectedAges.includes(age) &&
+      !Number.isNaN(rate)
+    ) {
+      maxRate = Math.max(maxRate, rate);
+    }
+  }
+
+  // small headroom + tidy
+  const padded = Math.max(10, Math.ceil(maxRate * 1.05 / 10) * 10);
+  return padded;
+}
+
+
+async function updateBothCharts(selectedAges) {
+  const maxY = await getYMax(selectedAges); // shared max for both charts
+  femaleMultiLineChart(selectedAges, maxY);
+  maleMultiLineChart(selectedAges, maxY);
+}
+
+const femaleMultiLineChart = (selectedAges = ["< 20"], maxY = 50) => {
+    const spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Female Marriage Rate by Age Group (2017–2022)",
+        "width": 600,
+        "height": 280,
+        "background": "transparent",
+        "data": {"url": FEMALE_CSV, "format": {"type": "csv"}},
+        "transform": [
+        {"filter": "datum.sex == 'female' && datum.age != 'all' && datum.year >= 2017 && datum.year <= 2022"},
+        {"filter": `indexof(${JSON.stringify(selectedAges)}, datum.age) >= 0`}
+        ],
+        "layer": [
+        // main line
+        {
+            "mark": {"type": "line", "interpolate": "monotone", "strokeWidth": 3},
+            "encoding": {
+            "x": {"field": "year", "type": "ordinal", "title": "Year"},
+"y": {
+  "field": "rate",
+  "type": "quantitative",
+  "title": "Marriage Rate (per 1,000 people)",
+  "scale": {"domain": [0, maxY]}
+},
+"color": {
+  "field": "age",
+  "type": "nominal",
+  "sort": allAges,
+  "scale": {
+    "domain": [
+      "< 20", "20-24", "25-29", "30-34", "35-39",
+      "40-44", "45-49", "50-54", "55-59", "60-64", "65+"
+    ],
+    "range": [
+      "#FFB000", // warm golden yellow
+      "#FE6100", // vibrant orange
+      "#F748A5", // vivid pink-magenta
+      "#785EF0", // strong purple
+      "#648FFF", // sky blue
+      "#2E6F9E", // medium blue
+      "#A1C9F4", // soft blue
+      "#FFC300", // light yellow
+      "#C77CFF", // soft violet
+      "#FF9DA6", // pastel pink
+      "#9E77B0"  // lavender purple
+    ]
+  },
+  "title": "Age Group"
+}
+            }
+        },
+
+        // visible points
+        {
+            "mark": {"type": "point", "size": 60, "filled": true, "opacity": 1},
+            "encoding": {
+            "x": {"field": "year", "type": "ordinal"},
+            "y": {"field": "rate", "type": "quantitative"},
+            "color": {"field": "age", "type": "nominal"},
+            "tooltip": [
+                {"field": "age", "title": "Age Group"},
+                {"field": "year", "title": "Year"},
+                {"field": "rate", "title": "Marriage Rate"}
+            ]
+            }
+        },
+
+        // transparent points for easier hover hitbox
+        {
+            "mark": {"type": "point", "size": 200, "opacity": 0}, // invisible hover area
+            "encoding": {
+            "x": {"field": "year", "type": "ordinal"},
+            "y": {"field": "rate", "type": "quantitative"},
+            "color": {"field": "age", "type": "nominal"},
+            "tooltip": [
+                {"field": "age", "title": "Age Group"},
+                {"field": "year", "title": "Year"},
+                {"field": "rate", "title": "Marriage Rate"}
+            ]
+            }
+        }
+        ],
+        "config": {
+        "font": "Arial",
+        "tooltip": {"font": "Arial", "fontSize": 12},
+        "axis": {
+            "labelFont": "Arial",
+            "labelFontSize": 12,
+            "titleFont": "Arial",
+            "titleFontSize": 13,
+            "titleFontWeight": "bold"
+        },
+        "legend": {
+            "labelFont": "Arial",
+            "labelFontSize": 12,
+            "titleFont": "Arial",
+            "titleFontSize": 13,
+            "titleFontWeight": "bold"
+        },
+        "view": {"stroke": "transparent"}
+        }
+    };
+    vegaEmbed("#femaleMultiLineChart", spec, { renderer: "svg", actions: false, tooltip: { theme: "custom" } })
+    .then(res => {
+        const tooltipEl = document.querySelector('.vg-tooltip');
+        if (tooltipEl) {
+        tooltipEl.style.fontFamily = 'Arial, sans-serif';
+        tooltipEl.style.fontSize = '12px';
+        tooltipEl.style.fontWeight = 'normal';
+        tooltipEl.style.color = '#000';
+        }
+    })
+    .catch(console.error);
+    };
+const maleMultiLineChart = (selectedAges = ["< 20"], maxY = 50) => {
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Male Marriage Rate by Age Group (2017–2022)",
+    "width": 600,
+    "height": 280,
+    "background": "transparent",
+    "data": {"url": FEMALE_CSV, "format": {"type": "csv"}},
+    "transform": [
+      {"filter": "datum.sex == 'male' && datum.age != 'all' && datum.year >= 2017 && datum.year <= 2022"},
+      {"filter": `indexof(${JSON.stringify(selectedAges)}, datum.age) >= 0`}
+    ],
+    "layer": [
+      {
+        "mark": {"type": "line", "interpolate": "monotone", "strokeWidth": 3},
+        "encoding": {
+          "x": {"field": "year", "type": "ordinal", "title": "Year"},
+"y": {
+  "field": "rate",
+  "type": "quantitative",
+  "title": "Marriage Rate (per 1,000 people)",
+  "scale": {"domain": [0, maxY]}
+},
+"color": {
+  "field": "age",
+  "type": "nominal",
+  "sort": allAges,
+  "scale": {
+    "domain": [
+      "< 20", "20-24", "25-29", "30-34", "35-39",
+      "40-44", "45-49", "50-54", "55-59", "60-64", "65+"
+    ],
+    "range": [
+      "#FFB000", // warm golden yellow
+      "#FE6100", // vibrant orange
+      "#F748A5", // vivid pink-magenta
+      "#785EF0", // strong purple
+      "#648FFF", // sky blue
+      "#2E6F9E", // medium blue
+      "#A1C9F4", // soft blue
+      "#FFC300", // light yellow
+      "#C77CFF", // soft violet
+      "#FF9DA6", // pastel pink
+      "#9E77B0"  // lavender purple
+    ]
+  },
+  "title": "Age Group"
+}
+
+
+
+        }
+      },
+      {
+        "mark": {"type": "point", "size": 60, "filled": true, "opacity": 1},
+        "encoding": {
+          "x": {"field": "year", "type": "ordinal"},
+          "y": {"field": "rate", "type": "quantitative"},
+          "color": {"field": "age", "type": "nominal"},
+          "tooltip": [
+            {"field": "age", "title": "Age Group"},
+            {"field": "year", "title": "Year"},
+            {"field": "rate", "title": "Marriage Rate"}
+          ]
+        }
+      },
+      {
+        "mark": {"type": "point", "size": 200, "opacity": 0},
+        "encoding": {
+          "x": {"field": "year", "type": "ordinal"},
+          "y": {"field": "rate", "type": "quantitative"},
+          "color": {"field": "age", "type": "nominal"},
+          "tooltip": [
+            {"field": "age", "title": "Age Group"},
+            {"field": "year", "title": "Year"},
+            {"field": "rate", "title": "Marriage Rate"}
+          ]
+        }
+      }
+    ],
+    "config": {
+      "font": "Arial",
+      "tooltip": {"font": "Arial", "fontSize": 12},
+      "axis": {
+        "labelFont": "Arial",
+        "labelFontSize": 12,
+        "titleFont": "Arial",
+        "titleFontSize": 13,
+        "titleFontWeight": "bold"
+      },
+      "legend": {
+        "labelFont": "Arial",
+        "labelFontSize": 12,
+        "titleFont": "Arial",
+        "titleFontSize": 13,
+        "titleFontWeight": "bold"
+      },
+      "view": {"stroke": "transparent"}
+    }
+  };
+
+  vegaEmbed("#maleMultiLineChart", spec, { renderer: "svg", actions: false, tooltip: { theme: "custom" } })
+    .then(res => {
+      const tooltipEl = document.querySelector('.vg-tooltip');
+      if (tooltipEl) {
+        tooltipEl.style.fontFamily = 'Arial, sans-serif';
+        tooltipEl.style.fontSize = '12px';
+        tooltipEl.style.fontWeight = 'normal';
+        tooltipEl.style.color = '#000';
+      }
+    })
+    .catch(console.error);
+};
+
+// ==============================
+// 🟪 Gender Difference Heatmap
+// ==============================
+const drawGenderDifferenceHeatmap = (containerId) => {
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Male − Female Marriage Rate Difference by Age Group (2017–2022)",
+"width": 1600,
+"height": 400,
+
+    "background": "transparent",
+    "data": { "url": FEMALE_CSV, "format": { "type": "csv" } },
+    "transform": [
+      { "filter": "datum.age != 'all' && datum.year >= 2017 && datum.year <= 2022" },
+      {
+        "pivot": "sex",
+        "value": "rate",
+        "groupby": ["year", "age"]
+      },
+      { "calculate": "datum.male - datum.female", "as": "diff" }
+    ],
+    "mark": "rect",
+    "encoding": {
+      "x": { "field": "year", "type": "ordinal", "title": "Year", "axis": { "labelAngle": 0 } },
+      "y": { "field": "age", "type": "ordinal", "sort": allAges, "title": "Age Group" },
+"color": {
+  "field": "diff",
+  "type": "quantitative",
+  "title": "Male − Female Marriage Rate Difference (‰)",
+  "scale": {
+    "type": "linear",
+    "domain": [-35, 0, 35],
+    // 🩷 Female > Male → dark → light → white → light → dark ← Male > Female 💙
+    "range": [
+      "#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fde0dd", // darker → lighter pinks
+      "#ffffff",                                                       // neutral midpoint
+      "#deebf7", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#084594"  // lighter → darker blues
+    ],
+    "interpolate": "hcl",
+    "clamp": true
+  },
+"legend": {
+  "title": "Gender Gap (Male − Female)",
+  "orient": "bottom-right",
+  "direction": "horizontal",
+  "gradientLength": 300,
+  "offset": -100,                // moves legend slightly inward
+  "titleFont": "Arial",
+  "titleFontSize": 13,
+  "titleFontWeight": "bold",
+  "labelFont": "Arial",
+  "labelFontSize": 12,
+  "titleColor": "#333",
+  "labelColor": "#333",
+  "tickCount": 7
+}
+
+
+},
+
+
+      "tooltip": [
+        { "field": "year", "title": "Year" },
+        { "field": "age", "title": "Age Group" },
+        { "field": "male", "title": "Male Rate (‰)" },
+        { "field": "female", "title": "Female Rate (‰)" },
+        { "field": "diff", "title": "Male − Female (‰)" }
+      ]
+    },
+    "config": {
+      "font": "Arial",
+      "axis": {
+        "labelFont": "Arial", "labelFontSize": 12,
+        "titleFont": "Arial", "titleFontSize": 13, "titleFontWeight": "bold"
+      },
+      "legend": {
+        "labelFont": "Arial",
+        "titleFont": "Arial", "titleFontSize": 13, "titleFontWeight": "bold"
+      },
+      "view": { "stroke": "transparent" }
+    }
+  };
+
+  vegaEmbed(containerId, spec, { renderer: "svg", actions: false });
+};
+
+const drawWaffleChart = async () => {
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Normalized Male vs Female Marriage Rates (2022, per state)",
+    "data": {
+      "url": "https://raw.githubusercontent.com/ZhiYin1018/3179-W9-Homework/refs/heads/main/data/marriages_state_age.csv",
+      "format": { "type": "csv" }
+    },
+    "transform": [
+      // Only include year 2022 and all ages
+      { "filter": "datum.year == 2022 && datum.age == 'all'" },
+
+      // Pivot male/female into columns
+      {
+        "pivot": "sex",
+        "value": "rate",
+        "groupby": ["state"]
+      },
+
+      // Compute total and percentage share
+      { "calculate": "datum.male + datum.female", "as": "total" },
+      { "calculate": "datum.male / datum.total", "as": "maleShare" },
+      { "calculate": "datum.female / datum.total", "as": "femaleShare" },
+
+      // Each waffle box = 100 tiles
+      { 
+        "cross": { "as": ["stateRow", "tile"] },
+        "with": { "sequence": { "start": 0, "stop": 100, "as": "tile" } }
+      },
+
+      // Copy back state & shares
+      { "calculate": "datum.stateRow.state", "as": "state" },
+      { "calculate": "datum.stateRow.maleShare", "as": "maleShare" },
+      { "calculate": "datum.stateRow.femaleShare", "as": "femaleShare" },
+      { "calculate": "datum.stateRow.male", "as": "maleRate" },
+      { "calculate": "datum.stateRow.female", "as": "femaleRate" },
+      { "calculate": "datum.stateRow.total", "as": "totalRate" },
+
+      // Determine tile color: blue = male, pink = female
+      {
+        "calculate": "datum.tile/100 < datum.maleShare ? 'male' : 'female'",
+        "as": "genderFill"
+      },
+
+      // Position grid (10×10)
+      { "calculate": "datum.tile % 10", "as": "x" },
+      { "calculate": "floor(datum.tile / 10)", "as": "y" }
+    ],
+
+    "facet": {
+      "field": "state",
+      "columns": 5,
+      "title": "Proportion of Male vs Female Marriages by State (2022, normalized)"
+    },
+
+    "spec": {
+      "width": 80,
+      "height": 80,
+      "layer": [
+        // 10×10 waffle tiles
+        {
+          "mark": { "type": "rect", "stroke": "#999", "strokeWidth": 0.3 },
+          "encoding": {
+            "x": { "field": "x", "type": "ordinal", "axis": null },
+            "y": { "field": "y", "type": "ordinal", "axis": null },
+            "color": {
+              "field": "genderFill",
+              "type": "nominal",
+              "scale": { "domain": ["male", "female"], "range": ["#4292c6", "#f768a1"] },
+              "legend": { "title": "Dominant Gender" }
+            },
+            "tooltip": [
+              { "field": "state", "title": "State" },
+              { "field": "maleRate", "title": "Male Rate (‰)" },
+              { "field": "femaleRate", "title": "Female Rate (‰)" },
+              { "field": "totalRate", "title": "Total Rate (‰)" },
+              { "field": "maleShare", "title": "Male Share", "format": ".0%" },
+              { "field": "femaleShare", "title": "Female Share", "format": ".0%" }
+            ]
+          }
+        },
+        // State labels
+        {
+          "mark": {
+            "type": "text",
+            "font": "Arial",
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "color": "#333",
+            "align": "center",
+            "baseline": "bottom",
+            "dy": 85
+          },
+          "encoding": { "text": { "field": "state" } }
+        }
+      ]
+    },
+
+    "config": {
+      "facet": { "spacing": 15 },
+      "view": { "stroke": "transparent" },
+      "font": "Arial"
+    }
+  };
+
+  vegaEmbed("#waffleChart", spec, { renderer: "svg", actions: false }).catch(console.error);
+};
+
+
+
+
+
+    const checkboxGroup = document.getElementById("ageCheckboxGroup");
+    allAges.forEach(age => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.value = age;
+      input.name = "ageBox";
+      input.checked = true;
+      label.appendChild(input);
+      label.append(age);
+      checkboxGroup.appendChild(label);
+    });
+
+    // ====== 🧭 SHARED ZOOM CONTROL ======
+    let currentZoom = 2400;
+    let currentPan = { x: 500, y: 275 };
+
     let selectedYear = 2022;
-    drawChart(selectedSex, selectedYear);
+    let selectedSex = "female";
+    let selectedAges = [...allAges];
+    drawMap("male", selectedYear, "#maleVis");
+    drawMap("female", selectedYear, "#femaleVis");
+    updateBothCharts(selectedAges);
+    drawAreaChart(selectedYear);
 
-    // Dropdown listener
-    document.getElementById("sexSelect").addEventListener("change", (e) => {
-      selectedSex = e.target.value;
-      drawChart(selectedSex, selectedYear);
-    });
+drawGenderDifferenceHeatmap("#genderDiffHeatmap");
+drawWaffleChart();
 
-    // Year slider listener
-    document.getElementById("yearSlider").addEventListener("input", (e) => {
-      selectedYear = e.target.value;
+
+    // === YEAR SLIDER ===
+    document.getElementById("yearSlider").addEventListener("input", e => {
+      selectedYear = +e.target.value;
       document.getElementById("yearLabel").textContent = selectedYear;
-      drawChart(selectedSex, selectedYear);
+      document.getElementById("chartTitle").textContent =
+        `Marriage Rate in Malaysia (Male vs Female), ${selectedYear} (All Ages)`;
+      drawMap("male", selectedYear, "#maleVis");
+      drawMap("female", selectedYear, "#femaleVis");
     });
+
+
+    // === AGE CHECKBOX EVENTS ===
+document.querySelectorAll("input[name='ageBox']").forEach(cb => {
+  cb.addEventListener("change", async () => {
+    const allBoxes = document.querySelectorAll("input[name='ageBox']");
+    const checked = Array.from(allBoxes)
+      .filter(c => c.checked)
+      .map(c => c.value);
+
+    selectedAges = checked;
+    // ✅ Recalculate Y max each time
+    await updateBothCharts(selectedAges);
+
+
+    // Update button label dynamically
+    const selectAllBtn = document.getElementById("selectAllBtn");
+    const allChecked = checked.length === allBoxes.length;
+    selectAllBtn.textContent = allChecked ? "Clear All" : "Select All Age Groups";
+  });
+});
+
+
+    // === SELECT ALL / CLEAR ALL BUTTON ===
+// === SELECT ALL / CLEAR ALL BUTTON ===
+document.getElementById("selectAllBtn").addEventListener("click", async () => {
+  const allBoxes = document.querySelectorAll("input[name='ageBox']");
+  const allChecked = Array.from(allBoxes).every(cb => cb.checked);
+
+  // Toggle all
+  allBoxes.forEach(cb => (cb.checked = !allChecked));
+  selectedAges = !allChecked ? [...allAges] : [];
+
+  // 🔁 Update BOTH charts dynamically
+  await updateBothCharts(selectedAges);
+
+  // Update button label
+  document.getElementById("selectAllBtn").textContent = !allChecked
+    ? "Clear All"
+    : "Select All Age Groups";
+});
+
+function updateMaps() {
+  // Redraw both maps with updated projection values
+  const injectZoomSignal = (spec) => {
+    spec.signals = [
+      { name: "zoomScale", value: currentZoom },
+      { name: "panX", value: currentPan.x },
+      { name: "panY", value: currentPan.y }
+    ];
+    return spec;
+  };
+
+  drawMap("male", selectedYear, "#maleVis");
+  drawMap("female", selectedYear, "#femaleVis");
+}
+
+document.getElementById("zoomInBtn").addEventListener("click", () => {
+  currentZoom *= 1.2;
+  updateMaps();
+});
+
+document.getElementById("zoomOutBtn").addEventListener("click", () => {
+  currentZoom /= 1.2;
+  updateMaps();
+});
+
+document.getElementById("resetZoomBtn").addEventListener("click", () => {
+  currentZoom = 2400;
+  currentPan = { x: 500, y: 275 };
+  updateMaps();
+});
+
+// ====== 🖱️ DRAG TO PAN CONTROL (smoothed) ======
+let isDragging = false;
+let startX, startY;
+let deltaX = 0, deltaY = 0;
+
+document.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  document.body.style.cursor = "grabbing";
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  // Apply accumulated pan only once (no flicker)
+  currentPan.x += deltaX * 0.5;
+  currentPan.y += deltaY * 0.5;
+  updateMaps(); // redraw once when drag ends
+  deltaX = 0;
+  deltaY = 0;
+  document.body.style.cursor = "default";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  deltaX = e.clientX - startX;
+  deltaY = e.clientY - startY;
+});
+
+
   </script>
 </body>
 </html>
