@@ -1502,13 +1502,19 @@ const maleMultiLineChart = (selectedAges, maxY) => {
         }
       },
 
-      // Labels at 2022
+      // Labels at 2022 (exclude 40–44)
       {
         "mark": { "type": "text", "align": "left", "baseline": "middle", "dx": 5, "font": "Arial", "fontSize": 11 },
         "transform": [
           { "filter": "datum.year == 2022" },
-          { "filter": {"field": "age", "oneOf": keyAges} }
+          {
+            "filter": {
+              "field": "age",
+              "oneOf": ["20-24", "25-29", "30-34", "35-39", "45-49"]
+            }
+          }
         ],
+
         "encoding": {
           "x": { "field": "year", "type": "ordinal" },
           "y": { "field": "rate", "type": "quantitative" },
@@ -1809,4 +1815,3 @@ function updateMaps() {
   </script>
 </body>
 </html>
-
