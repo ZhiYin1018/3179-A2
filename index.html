@@ -22,7 +22,7 @@ body {
 .main-container {
   max-width: 1600px;
   width: 100%;
-  background-color: #FFF8DC; /* 🌼 Cornsilk tone */
+  background-color: #FFF8DC; /*  yellow tone */
   margin: 40px auto;
   padding: 40px 50px;
   border-radius: 12px;
@@ -31,29 +31,23 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border: none;
 }
 
-/* ===============================
+/* 
    TYPOGRAPHY
-================================= */
+ */
 
-/* Main title */
 #mainTitle {
   font-family: 'Playfair Display', serif;
   font-size: 46px;
   text-align: center;
-  /* color: #5A3E00; */
-
   color: black;
-
   margin: 10px 0 8px 0;
   letter-spacing: 1px;
 }
 
-/* Subtitle */
 #subTitle {
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
   font-size: 20px;
-  /* color: #6B5200; */
     color: black;
 
   margin-bottom: 35px;
@@ -103,10 +97,6 @@ p, label, button, #analysisSection, #areaText, #lineChartText, #heatmapText {
   height: auto !important;
   overflow: visible;             /* allow chart edges to breathe */
 }
-
-
-
-
 
 .mapBox,
 #areaChart,
@@ -227,7 +217,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   overflow: visible !important;
   box-sizing: border-box;
 }
-/* AREA CHART + FINDINGS BOX */
+
 /* AREA CHART CONTAINER & CHART */
 #areaChartContainer {
   width: 100%;
@@ -301,7 +291,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   
 }
 
-/* 🔹 The chart itself: no background or shadow */
+/* The chart itself: no background or shadow */
 #genderDiffHeatmap,
 #waffleChart {
   width: 100%;
@@ -334,32 +324,6 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   }
 }
 
-/* 
-/* 
-   CHECKBOX + BUTTON CONTROLS
- */
-/* 
-.checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.checkbox-group label {
-  background: #f7f5ff;
-  border: 1px solid #bbb;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  user-select: none;
-}
 
 /* Select All button */
 #selectAllBtn {
@@ -387,9 +351,7 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 } */ */
 
-/* ===============================
-   MISC ALIGNMENT
-================================= */
+
 h2, h3, #controls, #ageCheckboxContainer {
   text-align: center;
   margin-left: auto;
@@ -406,16 +368,13 @@ h2, h3, #controls, #ageCheckboxContainer {
   color: #3B2C00 !important;
 }
 
-  </style>
+</style>
 </head>
 <body>
   <div class="main-container">
-    <h1 id="mainTitle">Marriage Trends in Malaysia, 2017–2022</h1>
+    <h1 id="mainTitle">Marriage Trends in Malaysia (@017–2022)</h1>
 <p id="subTitle">An analytical overview of marriage rates<br>across gender, age, and regions</p>
 
-
-
-<!--  AREA CHART CARD SECTION -->
 <div id="areaChartCard" style="
   background: #fff;
   border: 1px solid #ccc;
@@ -525,7 +484,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 
 
     <!-- All your charts, maps, titles, controls go here -->
-    <h2 id="chartTitle">Male & Female Marriage Rate in Malaysia, 2022 (All Ages)</h2>
+    <h2 id="chartTitle">Male & Female Marriage Rate in Malaysia (2022)</h2>
 
 <div id="controls" style="text-align:center; margin:20px 0;">
   <label for="yearSlider" style="font-weight:bold;">Year:</label>
@@ -548,7 +507,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 </div>
 <div id="vis"></div>
 
-<<!--  MAP ANALYSIS TEXT (Consistent Layout) -->
+<!--  MAP ANALYSIS TEXT (Consistent Layout) -->
 <div id="mapText" class="card" style="
   max-width: 1600px;
   margin: 40px auto 60px auto;
@@ -583,12 +542,7 @@ h2, h3, #controls, #ageCheckboxContainer {
   </div>
 </div>
 
-
-
-
-    <h2>Marriage Rate by Age Group (2017–2022)</h2>
-
-
+<h2>Male & Female Marriage Rate by Age Group (2017–2022)</h2>
 <div id="lineChartContainer">
   <div class="mapBox">
     <h3 style="text-align:center;">Male Marriage Rate by Age Group</h3>
@@ -632,18 +586,14 @@ h2, h3, #controls, #ageCheckboxContainer {
 </div>
 
 
-
 <!--  Responsive Layout -->
 <style>
   @media (max-width: 900px) {
     #lineChartText div {
-      column-count: 1;              /* 🪄 goes back to 1 column on small screens */
+      column-count: 1;              
     }
   }
 </style>
-
-
-
 
 <!--  GENDER DIFFERENCE & PROPORTION SECTION -->
 <h2 style="
@@ -708,7 +658,7 @@ h2, h3, #controls, #ageCheckboxContainer {
   align-items: stretch;
 ">
 
-  <!-- 💜 LEFT CARD -->
+  <!-- LEFT CARD -->
   <div style="
     flex: 1 1 48%;
     background: #fff;
@@ -733,7 +683,7 @@ h2, h3, #controls, #ageCheckboxContainer {
     <b>career</b> or <b>financial stability</b> before settling down.
   </div>
 
-  <!-- 🟠 RIGHT CARD -->
+  <!-- RIGHT CARD -->
   <div style="
     flex: 1 1 48%;
     background: #fff;
@@ -765,7 +715,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 
 
 
-<!-- 🔶 ANALYSIS SUMMARY (Two Columns + Gender Color Highlights) -->
+<!-- ANALYSIS SUMMARY (Two Columns + Gender Color Highlights) -->
 <div id="analysisSection" class="card" style="
   max-width: 1600px;
   margin: 40px auto 60px auto;
@@ -814,9 +764,9 @@ h2, h3, #controls, #ageCheckboxContainer {
   </div>
 </div>
 
-<!-- ===============================
-     📄 METADATA FOOTER (bottom-left)
-=============================== -->
+<!-- 
+     METADATA FOOTER (bottom-left)
+ -->
 <footer style="
   position: relative;
   bottom: 0;
@@ -837,9 +787,6 @@ h2, h3, #controls, #ageCheckboxContainer {
     Department of Statistics Malaysia (DOSM);Data.GOV.MY
   </p>
 </footer>
-
-
-
 </body>
 
 
@@ -853,27 +800,25 @@ h2, h3, #controls, #ageCheckboxContainer {
 
       const drawMap = (selectedSex, selectedYear, containerId) => {
       document.getElementById("chartTitle").textContent =
-        `${selectedSex.charAt(0).toUpperCase() + selectedSex.slice(1)} Marriage Rate in Malaysia, ${selectedYear} (All Ages)`;
+        `Male & Female Marriage Rate in Malaysia (${selectedYear})`;
 
-const colorRange = selectedSex === "female"
-  // Purple gradient (light lavender → deep violet)
-  ? ["#F3E5F5", "#E1BEE7", "#CE93D8", "#BA68C8", "#8E24AA", "#4A148C"]
-  // Orange-brown gradient (soft amber → deep brown-orange)
-  : ["#FFE5B4", "#F2B179", "#E59442", "#CC7722", "#A65E1E", "#703800"];
+      const colorRange = selectedSex === "female"
+        // Purple gradient (light lavender → deep violet)
+        ? ["#F3E5F5", "#E1BEE7", "#CE93D8", "#BA68C8", "#8E24AA", "#4A148C"]
+        // Orange-brown gradient (soft amber → deep brown-orange)
+        : ["#FFE5B4", "#F2B179", "#E59442", "#CC7722", "#A65E1E", "#703800"];
 
       const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "width": 900,
         "height": 420,
         "background": "#cfeefb",
-"projection": {
-  "type": "mercator",
-  "center": [111, 2.5],
-  "scale": currentZoom,
-  "translate": [currentPan.x, currentPan.y]
-},
-
-
+        "projection": {
+          "type": "mercator",
+          "center": [111, 2.5],
+          "scale": currentZoom,
+          "translate": [currentPan.x, currentPan.y]
+        },
         "layer": [
           { "data": { "sphere": true }, "mark": { "type": "geoshape", "fill": "#cfeefb" } },
           {
@@ -909,16 +854,30 @@ const colorRange = selectedSex === "female"
                 "type": "quantitative",
                 "scale": { "type": "threshold", "domain": [18, 22, 25, 28, 32], "range": colorRange },
                 "legend": {
-                  "title": "Marriage Rate (per 1000)",
+                  "title": "Marriage Rate (per 1,000 people)",
                   "orient": "bottom-right",
                   "direction": "horizontal",
+                  "gradientLength": 400,         // wider gradient bar for full text
+                  "gradientThickness": 16,
                   "titleFont": "Arial",
-                  "titleFontSize": 13,
+                  "titleFontSize": 18,           
+                  "titleFontWeight": "bold",
                   "labelFont": "Arial",
-                  "labelFontSize": 12,
+                  "labelFontSize": 14,
+                  "labelFontWeight": "bold",
                   "titleColor": "#4b3b00",
-                  "labelColor": "#4b3b00"
+                  "labelColor": "#4b3b00",
+                  "labelOffset": 8,
+                  "titlePadding": 12,
+                  "padding": 15,
+                  "offset": -1,
+                  "symbolLimit": 0,             
+                  "clipHeight": 50,              
+                  "titleLimit": 0,               
+                  "titleAnchor": "middle",        
+                  "labelAnchor": "middle"         
                 }
+
               },
               "tooltip": [
                 { "field": "state", "title": "State" },
@@ -992,10 +951,10 @@ const colorRange = selectedSex === "female"
     {
 "data": {
   "values": [
-
+    // MALE ANNOTATIONS
       { "year": 2017, "sex": "male", "text": "Negeri Sembilan's men /n led Peninsular /nMalaysia.", "lon": 105, "lat": 3.3 },
 
-    { "year": 2018, "sex": "male", "text": "Melaka's /n registrations /nslowed slightly./nBacklogs delayed many weddings", "lon": 105, "lat": 2.4 },
+    { "year": 2018, "sex": "male", "text": "Backlogs delayed /n many weddings", "lon": 105, "lat": 2.4 },
 
     { "year": 2019, "sex": "male", "text": "Early marriage norms /nstill persisted", "lon": 104.5, "lat": 3.1 },
 
@@ -1008,7 +967,7 @@ const colorRange = selectedSex === "female"
     // FEMALE ANNOTATIONS
     { "year": 2017, "sex": "female", "text": "Kelantan's women marry earlier./n Customs kept rates above 30%", "lon": 104.3, "lat": 6.3 },
 
-    { "year": 2018, "sex": "female", "text": "Terengganu and Kelantan led again./nFaith-based norms /nstayed strong.", "lon": 104.2, "lat": 5.2 },
+    { "year": 2018, "sex": "female", "text": "Faith-based norms /nstayed strong.", "lon": 104.2, "lat": 5.2 },
 
     { "year": 2019, "sex": "female", "text": "Putrajaya's modern lifestyle /ncause rate fell slightly.", "lon": 104, "lat": 3.7 },
 
@@ -1023,17 +982,17 @@ const colorRange = selectedSex === "female"
       "transform": [
         { "filter": `datum.year == ${selectedYear}` },
         { "filter": `datum.sex == '${selectedSex}'` }
-      ],
-"mark": {
-  "type": "text",
-  "font": "Arial",
-  "fontSize": 28,
-  "align": "left",
-  "color": "#000000",
-  "dx": -4,
-  "dy": -2,
-  "lineBreak": "/n"
-},
+            ],
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 28,
+        "align": "left",
+        "color": "#000000",
+        "dx": -4,
+        "dy": -2,
+        "lineBreak": "/n"
+      },
 
       "encoding": {
         "longitude": { "field": "lon", "type": "quantitative" },
@@ -1043,6 +1002,8 @@ const colorRange = selectedSex === "female"
     }
   ]
 };
+
+
     vegaEmbed(containerId, spec, { renderer: "svg", actions: false, tooltip: { theme: "custom" } })
     .then(res => {
         // Apply custom tooltip styling
@@ -1059,11 +1020,9 @@ const colorRange = selectedSex === "female"
 
  let currentChartType = "bar"; //  default = bar chart (number of marriages)
 
- 
-const drawAreaChart = (chartType = "bar") => {
+ const drawAreaChart = (chartType = "bar") => {
   const isLine = chartType === "line";
 
-  // Base chart spec
   const spec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Malaysia Marriage Trends (2017–2022)",
@@ -1098,7 +1057,7 @@ const drawAreaChart = (chartType = "bar") => {
     }
   };
 
-  //  Main line/bar chart
+  // === Main Line / Bar Layer ===
   spec.layer.push({
     "mark": isLine
       ? { "type": "line", "color": "#E75480", "strokeWidth": 3, "interpolate": "monotone" }
@@ -1130,35 +1089,60 @@ const drawAreaChart = (chartType = "bar") => {
     }
   });
 
-  //  Interactive hover points for line chart
-if (isLine) {
-  // Add hover points for all data points
-  spec.layer.push({
-    "mark": { 
-      "type": "point", 
-      "size": 80, 
-      "color": "#E75480",
-      "opacity": 0.8,
-      "stroke": "#E75480",
-      "strokeWidth": 2
-    },
-    "encoding": {
-      "x": { "field": "year", "type": "ordinal" },
-      "y": { "field": "rate", "type": "quantitative" },
-      "tooltip": [
-        { "field": "year", "title": "Year" },
-        { "field": "rate", "title": "Marriage Rate", "format": ".1f" }
-      ]
-    }
-  });
-}
+  // === Hover Points (Line Chart Only) ===
+  if (isLine) {
+    spec.layer.push({
+      "mark": {
+        "type": "point",
+        "size": 80,
+        "color": "#E75480",
+        "opacity": 0.8,
+        "stroke": "#E75480",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "rate", "type": "quantitative" },
+        "tooltip": [
+          { "field": "year", "title": "Year" },
+          { "field": "rate", "title": "Marriage Rate", "format": ".1f" }
+        ]
+      }
+    });
 
+    // Annotation for 2020 Drop (Line Chart Only) 
+    spec.layer.push({
+      "data": {
+        "values": [
+          {
+            "year": 2020,
+            "note": "Sharp drop in 2020 due to MCO restrictions"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 33,
+        "dy": -8,
+        "font": "Arial",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#E75480"
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "datum": 21.6, "type": "quantitative" }, // exact marriage rate in 2020
+        "text": { "field": "note" }
+      }
+    });
+  }
 
-
-
-  //  Render the chart
+  //  Render Chart 
   vegaEmbed("#areaChart", spec, { renderer: "svg", actions: false }).catch(console.error);
 };
+
 
 
 
@@ -1267,13 +1251,13 @@ const femaleMultiLineChart = (selectedAges, maxY) => {
   "field": "rate",
   "type": "quantitative",
   "title": "Marriage Rate (per 1,000 people)",
-  "scale": {"domain": [0, maxY]}  // 👈 ensure same Y-axis scale
+  "scale": {"domain": [0, maxY]}  //  ensure same Y-axis scale
 },
           "detail": { "field": "age" }
         }
       },
 
-      // Highlight line for 30–34
+      // Highlight line for 30-34
       {
         "mark": { "type": "line", "interpolate": "monotone", "strokeWidth": 3, "color": "#CE93D8" },
         "transform": [{ "filter": `datum.age == '${highlightAge}'` }],
@@ -1381,7 +1365,7 @@ const maleMultiLineChart = (selectedAges, maxY) => {
   "field": "rate",
   "type": "quantitative",
   "title": "Marriage Rate (per 1,000 people)",
-  "scale": {"domain": [0, maxY]}  // 👈 ensure same Y-axis scale
+  "scale": {"domain": [0, maxY]}  //  ensure same Y-axis scale
 },
           "detail": { "field": "age" }
         }
@@ -1510,40 +1494,40 @@ const drawGenderDifferenceHeatmap = (containerId) => {
         "title": "Gender Difference (%)",
         "scale": {
           "domain": [-35, 0, 35],
-          "range": ["#8E24AA", "#FFFFFF", "#CC7722"],  // female – male
+          "range": ["#8E24AA", "#FFFFFF", "#CC7722"],  // female - male
           "clamp": true
         },
-"legend": {
-  "orient": "bottom",
-  "direction": "horizontal",
-  "gradientLength": 480,
-  "gradientThickness": 14,
-  "offset": 30,
-  "titleAnchor": "middle",
-  "titleAlign": "center",
-  "titleBaseline": "bottom",
-  "titleFont": "Arial",
-  "titleFontSize": 13,
-  "titleFontWeight": "bold",
-  "labelFont": "Arial",
-  "labelFontSize": 12,
-  "titleColor": "#333",
-  "labelColor": "#333",
-  //  Only show 3 main tick positions
-  "values": [-30, 0, 30],
-  //  One label per side, not repeated
-  "labelExpr": "datum.value == -30 ? 'Higher for Women' : datum.value == 0 ? 'Equal' : 'Higher for Men'",
-  "padding": 10
-}
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal",
+        "gradientLength": 480,
+        "gradientThickness": 14,
+        "offset": 30,
+        "titleAnchor": "middle",
+        "titleAlign": "center",
+        "titleBaseline": "bottom",
+        "titleFont": "Arial",
+        "titleFontSize": 13,
+        "titleFontWeight": "bold",
+        "labelFont": "Arial",
+        "labelFontSize": 12,
+        "titleColor": "#333",
+        "labelColor": "#333",
+        //  Only show 3 main tick positions
+        "values": [-30, 0, 30],
+        //  One label per side, not repeated
+        "labelExpr": "datum.value == -30 ? 'Higher for Women' : datum.value == 0 ? 'Equal' : 'Higher for Men'",
+        "padding": 10
+      }
 
       },
       "tooltip": [
         { "field": "year", "title": "Year" },
         { "field": "age", "title": "Age Group" },
         { "field": "trend", "title": "Observation" },
-{ "field": "absDiff", "title": "Difference (%)", "format": ".2f", "formatType": "number", "type": "quantitative" },
-{ "calculate": "abs(datum.diff)", "as": "absDiff" }
-      ]
+        { "field": "absDiff", "title": "Difference (%)", "format": ".2f", "formatType": "number", "type": "quantitative" },
+        { "calculate": "abs(datum.diff)", "as": "absDiff" }
+        ]
     },
 
     "config": {
@@ -1648,10 +1632,9 @@ const drawWaffleChart = async () => {
     drawMap("male", selectedYear, "#maleVis");
     drawMap("female", selectedYear, "#femaleVis");
     updateBothCharts(selectedAges);
-drawAreaChart("bar");  //  start with bar chart (number of marriages)
-
-drawGenderDifferenceHeatmap("#genderDiffHeatmap");
-drawWaffleChart();
+    drawAreaChart("bar");  
+    drawGenderDifferenceHeatmap("#genderDiffHeatmap");
+    drawWaffleChart();
 
 
     // YEAR SLIDER
@@ -1666,12 +1649,12 @@ drawWaffleChart();
 
 
     // AGE CHECKBOX EVENTS
-document.querySelectorAll("input[name='ageBox']").forEach(cb => {
-  cb.addEventListener("change", async () => {
-    const allBoxes = document.querySelectorAll("input[name='ageBox']");
-    const checked = Array.from(allBoxes)
-      .filter(c => c.checked)
-      .map(c => c.value);
+    document.querySelectorAll("input[name='ageBox']").forEach(cb => {
+      cb.addEventListener("change", async () => {
+        const allBoxes = document.querySelectorAll("input[name='ageBox']");
+        const checked = Array.from(allBoxes)
+          .filter(c => c.checked)
+          .map(c => c.value);
 
     selectedAges = checked;
     //  Recalculate Y max each time
