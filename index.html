@@ -881,7 +881,7 @@ h2, h3, #controls, #ageCheckboxContainer {
               },
               "tooltip": [
                 { "field": "state", "title": "State" },
-                { "field": "rate", "title": "Marriage Rate" },
+                { "field": "rate", "title": "Marriage Rate (%)" },
                 { "field": "year", "title": "Year" }
               ]
             }
@@ -1080,7 +1080,7 @@ h2, h3, #controls, #ageCheckboxContainer {
       "tooltip": isLine
         ? [
             { "field": "year", "title": "Year" },
-            { "field": "rate", "title": "Marriage Rate", "format": ".1f" }
+            { "field": "rate", "title": "Marriage Rate (%)", "format": ".1f" }
           ]
         : [
             { "field": "year", "title": "Year" },
@@ -1105,7 +1105,7 @@ h2, h3, #controls, #ageCheckboxContainer {
         "y": { "field": "rate", "type": "quantitative" },
         "tooltip": [
           { "field": "year", "title": "Year" },
-          { "field": "rate", "title": "Marriage Rate", "format": ".1f" }
+          { "field": "rate", "title": "Marriage Rate (%)", "format": ".1f" }
         ]
       }
     });
