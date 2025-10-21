@@ -10,10 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
   <style>
-/* ====== PAGE LAYOUT STYLE (1080p MAX) ====== */
-/* ===============================
-   GLOBAL PAGE LAYOUT
-================================= */
+/* PAGE LAYOUT STYLE (1080p MAX) */
+/* GLOBAL PAGE LAYOUT */
 body {
   margin: 0;
   padding: 0;
@@ -90,9 +88,9 @@ p, label, button, #analysisSection, #areaText, #lineChartText, #heatmapText {
   font-size: 15.5px;
 }
 
-/* ===============================
+/* 
    VISUALISATION + CARD STYLE
-================================= */
+ */
 
 #waffleChart {
   background-color: white !important;
@@ -130,15 +128,15 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   padding: 0;            /* remove inner spacing */
 }
 
-/* ===============================
+/* 
    SIDE-BY-SIDE CHARTS (MAP & MULTI-LINE)
-================================= */
+ */
 #mapContainer,
 #lineChartContainer {
   display: flex;
   justify-content: space-between;    /* distribute both evenly */
   align-items: stretch;
-  flex-wrap: nowrap;                 /* ✅ keep both charts in one row */
+  flex-wrap: nowrap;                 /*  keep both charts in one row */
   gap: 20px;
   width: 100%;
   max-width: 1600px;
@@ -146,7 +144,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
 
-/* ✅ Each chart box auto-scales and keeps proper ratio */
+/*  Each chart box auto-scales and keeps proper ratio */
 .mapBox {
   flex: 1 1 48%;
   min-width: 480px;
@@ -155,15 +153,15 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  padding: 35px 40px 30px 40px; /* 🔸 Added internal space */
+  padding: 35px 40px 30px 40px; /*  Added internal space */
   overflow: visible;            /* let annotations breathe */
   transition: all 0.3s ease;
 }
 
 
-/* ===============================
+/* 
    RESPONSIVE AUTO-RESIZE
-================================= */
+ */
 @media (max-width: 1400px) {
   .mapBox {
     min-width: 420px;
@@ -192,7 +190,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 @media (max-width: 800px) {
   #mapContainer,
   #lineChartContainer {
-    flex-direction: column;          /* ✅ finally stack vertically */
+    flex-direction: column;          /*  finally stack vertically */
     align-items: center;
   }
   .mapBox {
@@ -218,8 +216,8 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 
 #genderDiffHeatmap {
   display: flex;
-  justify-content: center;     /* 🔸 horizontally center the chart */
-  align-items: center;         /* 🔸 vertically center it */
+  justify-content: center;     /*  horizontally center the chart */
+  align-items: center;         /*  vertically center it */
   width: 100%;
   margin: 0 auto;
   padding: 10px 0;             /* small breathing space top-bottom */
@@ -229,10 +227,8 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   overflow: visible !important;
   box-sizing: border-box;
 }
-/* ===============================
-   AREA CHART + FINDINGS BOX
-================================= */
-/* === AREA CHART CONTAINER & CHART === */
+/* AREA CHART + FINDINGS BOX */
+/* AREA CHART CONTAINER & CHART */
 #areaChartContainer {
   width: 100%;
   max-width: 1600px;
@@ -240,13 +236,13 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   padding: 0;
   display: flex;
   justify-content: center;
-  align-items: stretch;   /* ✅ stretch vertically */
-  height: 400px;          /* ✅ fixed proportional height */
+  align-items: stretch;   /*  stretch vertically */
+  height: 400px;          /*  fixed proportional height */
   box-sizing: border-box;
 }
 
 #areaChart {
-  padding: 0;           /* ✅ remove any inner padding */
+  padding: 0;           /*  remove any inner padding */
   margin: 0; 
     height: 100%;
   width: 100%;
@@ -255,7 +251,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
-  overflow: hidden;       /* ✅ prevent Vega SVG overflow */
+  overflow: hidden;       /*  prevent Vega SVG overflow */
 }
 
 
@@ -265,7 +261,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 #lineChartText,
 #heatmapText,
 #analysisSection {
-  max-width: 1600px;  /* ✅ uniform width */
+  max-width: 1600px;  /*  uniform width */
   margin: 25px auto;
   background: #fff;
   border: 1px solid #ccc;
@@ -278,9 +274,9 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 
-/* ===============================
+/* 
    HEATMAP + WAFFLE (FLAT GRAPH INSIDE WHITE BOX)
-================================= */
+ */
 #heatmapWaffleContainer {
   display: flex;
   justify-content: space-between;
@@ -292,7 +288,7 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
 
-/* 🔸 White rounded container behind chart */
+/*  White rounded container behind chart */
 .halfCard {
   flex: 1 1 48%;
   background: #ffffff;             /* white box background */
@@ -339,9 +335,9 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* 
-/* ===============================
+/* 
    CHECKBOX + BUTTON CONTROLS
-================================= */
+ */
 /* 
 .checkbox-group {
   display: flex;
@@ -419,7 +415,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 
 
 
-<!-- ✅ AREA CHART CARD SECTION -->
+<!--  AREA CHART CARD SECTION -->
 <div id="areaChartCard" style="
   background: #fff;
   border: 1px solid #ccc;
@@ -471,7 +467,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 
 </div>
 
-<!-- ✅ Button Hover Effects -->
+<!--  Button Hover Effects -->
 <style>
 #toggleChartBtn:hover {
   background-color: #FFB347;           /* deeper orange hover */
@@ -485,7 +481,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 }
 </style>
 
-<!-- 🟣 AREA CHART SUMMARY (Consistent Layout) -->
+<!--  AREA CHART SUMMARY (Consistent Layout) -->
 <div id="areaText" class="card" style="
   max-width: 1600px;
   margin: 40px auto 60px auto;
@@ -552,7 +548,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 </div>
 <div id="vis"></div>
 
-<<!-- 🟣 MAP ANALYSIS TEXT (Consistent Layout) -->
+<<!--  MAP ANALYSIS TEXT (Consistent Layout) -->
 <div id="mapText" class="card" style="
   max-width: 1600px;
   margin: 40px auto 60px auto;
@@ -603,7 +599,7 @@ h2, h3, #controls, #ageCheckboxContainer {
     <div id="femaleMultiLineChart"></div>
   </div>
 </div>
-<!-- 🟡 MULTILINE CHART INSIGHT (Two Columns + Gender Color Highlights) -->
+<!--  MULTILINE CHART INSIGHT (Two Columns + Gender Color Highlights) -->
 <div id="lineChartText" class="card" style="
   max-width: 1600px;
   margin: 40px auto 60px auto;
@@ -637,7 +633,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 
 
 
-<!-- 🔽 Responsive Layout -->
+<!--  Responsive Layout -->
 <style>
   @media (max-width: 900px) {
     #lineChartText div {
@@ -649,7 +645,7 @@ h2, h3, #controls, #ageCheckboxContainer {
 
 
 
-<!-- ✅ GENDER DIFFERENCE & PROPORTION SECTION -->
+<!--  GENDER DIFFERENCE & PROPORTION SECTION -->
 <h2 style="
   text-align:center;
   font-family:'Times New Roman';
@@ -659,7 +655,7 @@ h2, h3, #controls, #ageCheckboxContainer {
   Gender Difference & Proportion of Marriages (2022)
 </h2>
 
-<!-- 🟣 CHART CONTAINER -->
+<!--  CHART CONTAINER -->
 <div id="heatmapWaffleContainer" style="
   display: flex;
   justify-content: space-between;
@@ -669,7 +665,7 @@ h2, h3, #controls, #ageCheckboxContainer {
   margin: 0 auto 40px auto;
 ">
 
-  <!-- 🟣 LEFT: Heatmap -->
+  <!--  LEFT: Heatmap -->
   <div id="genderDiffHeatmapContainer" class="halfCard" style="
     flex: 1 1 48%;
     background: #fff;
@@ -685,7 +681,7 @@ h2, h3, #controls, #ageCheckboxContainer {
     <div id="genderDiffHeatmap"></div>
   </div>
 
-  <!-- 🟡 RIGHT: Waffle -->
+  <!--  RIGHT: Waffle -->
   <div id="waffleChartContainer" class="halfCard" style="
     flex: 1 1 48%;
     background: #fff;
@@ -701,7 +697,7 @@ h2, h3, #controls, #ageCheckboxContainer {
     <div id="waffleChart"></div>
   </div>
 </div>
-<!-- 🟣 GENDER INSIGHT SECTION (Two Separate Cards - Consistent Layout) -->
+<!--  GENDER INSIGHT SECTION (Two Separate Cards - Consistent Layout) -->
 <div id="genderInsightContainer" style="
   display: flex;
   justify-content: space-between;
@@ -860,9 +856,9 @@ h2, h3, #controls, #ageCheckboxContainer {
         `${selectedSex.charAt(0).toUpperCase() + selectedSex.slice(1)} Marriage Rate in Malaysia, ${selectedYear} (All Ages)`;
 
 const colorRange = selectedSex === "female"
-  // 💜 Purple gradient (light lavender → deep violet)
+  // Purple gradient (light lavender → deep violet)
   ? ["#F3E5F5", "#E1BEE7", "#CE93D8", "#BA68C8", "#8E24AA", "#4A148C"]
-  // 🟤 Orange-brown gradient (soft amber → deep brown-orange)
+  // Orange-brown gradient (soft amber → deep brown-orange)
   : ["#FFE5B4", "#F2B179", "#E59442", "#CC7722", "#A65E1E", "#703800"];
 
       const spec = {
@@ -932,12 +928,11 @@ const colorRange = selectedSex === "female"
             }
           },
 
-    // === ANNOTATION LINES ===
-// === ANNOTATION LINES ===
+    // ANNOTATION LINES
 {
   "data": {
     "values": [
-      // ===== MALE: line ends match the male TEXT coords =====
+      // MALE ANNOTATION LINES: connecting map regions to text labels
       // 2017
       { "year": 2017, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104.6, "lat_end": 3.1 }, // Negeri Sembilan → text (105, 3.3)
 
@@ -956,7 +951,7 @@ const colorRange = selectedSex === "female"
       // 2022
       { "year": 2022, "sex": "male", "lon": 102.4, "lat": 6.1, "lon_end": 104.9, "lat_end": 6.3 },  // Kelantan → text (105.0, 6.3)
 
-      // ===== FEMALE: keep lines aligned to female TEXT coords =====
+      // FEMALE ANNOTATION LINES: connecting map regions to text labels
       // 2017
       { "year": 2017, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.0, "lat_end": 6.3 }, // Kelantan → text (104.3, 6.3)
 
@@ -993,7 +988,7 @@ const colorRange = selectedSex === "female"
   }
 }
 ,
-    // === ANNOTATION TEXTS ===
+    // ANNOTATION TEXTS
     {
 "data": {
   "values": [
@@ -1010,7 +1005,7 @@ const colorRange = selectedSex === "female"
 
     { "year": 2022, "sex": "male", "text": "Kelantan remained Malaysia's /n highest male rate /n in 2011 & 2022", "lon": 105.0, "lat": 6.3 },
 
-    // === FEMALE ANNOTATIONS ===
+    // FEMALE ANNOTATIONS
     { "year": 2017, "sex": "female", "text": "Kelantan's women marry earlier./n Customs kept rates above 30%", "lon": 104.3, "lat": 6.3 },
 
     { "year": 2018, "sex": "female", "text": "Terengganu and Kelantan led again./nFaith-based norms /nstayed strong.", "lon": 104.2, "lat": 5.2 },
@@ -1062,7 +1057,7 @@ const colorRange = selectedSex === "female"
     .catch(console.error);
     };
 
- let currentChartType = "bar"; // 🟡 default = bar chart (number of marriages)
+ let currentChartType = "bar"; //  default = bar chart (number of marriages)
 
  
 const drawAreaChart = (chartType = "bar") => {
@@ -1103,7 +1098,7 @@ const drawAreaChart = (chartType = "bar") => {
     }
   };
 
-  // 🟣 Main line/bar chart
+  //  Main line/bar chart
   spec.layer.push({
     "mark": isLine
       ? { "type": "line", "color": "#E75480", "strokeWidth": 3, "interpolate": "monotone" }
@@ -1188,10 +1183,8 @@ document.getElementById("toggleChartBtn").addEventListener("click", () => {
 drawAreaChart("bar");
 
 
-    // ===============================
-//  Shared Y-axis + Multi-line charts
-// ===============================
-// Highest marriage rate across BOTH genders for the selected ages (2017–2022)
+    // SHARED Y-AXIS + MULTI-LINE CHARTS
+    // Highest marriage rate across BOTH genders for the selected ages (2017–2022)
 async function getYMax(selectedAges) {
   const res = await fetch(YEAR_AGEGROUP_CSV);
   const text = await res.text();
@@ -1204,7 +1197,7 @@ async function getYMax(selectedAges) {
     year: headers.indexOf("year"),
     sex:  headers.indexOf("sex"),
     age:  headers.indexOf("age"),
-    rate: headers.indexOf("rate")  // ✅ use 'rate' column, not 'abs'
+    rate: headers.indexOf("rate")  //  use 'rate' column, not 'abs'
   };
 
   let maxRate = 0;
@@ -1212,7 +1205,7 @@ async function getYMax(selectedAges) {
     const cols = lines[i].split(",");
     const year = Number(cols[idx.year]);
     const age  = cols[idx.age];
-    const rate = Number(cols[idx.rate]); // ✅ true marriage rate
+    const rate = Number(cols[idx.rate]); //  true marriage rate
 
     if (
       year >= 2017 && year <= 2022 &&
@@ -1256,7 +1249,7 @@ const femaleMultiLineChart = (selectedAges, maxY) => {
     ],
 
     "layer": [
-      // 🩶 Base lines (gray)
+      // Base lines (gray)
       {
         "mark": { "type": "line", "stroke": "#C0C0C0", "strokeWidth": 1.3, "opacity": 0.6 },
         "transform": [{ "filter": `datum.age != '${highlightAge}'` }],
@@ -1280,7 +1273,7 @@ const femaleMultiLineChart = (selectedAges, maxY) => {
         }
       },
 
-      // 💜 Highlight line for 30–34
+      // Highlight line for 30–34
       {
         "mark": { "type": "line", "interpolate": "monotone", "strokeWidth": 3, "color": "#CE93D8" },
         "transform": [{ "filter": `datum.age == '${highlightAge}'` }],
@@ -1290,7 +1283,7 @@ const femaleMultiLineChart = (selectedAges, maxY) => {
         }
       },
 
-      // 🔹 Visible dots for all lines
+      // Visible dots for all lines
       {
         "mark": { "type": "point", "size": 50, "filled": true, "opacity": 1 },
         "encoding": {
@@ -1310,7 +1303,7 @@ const femaleMultiLineChart = (selectedAges, maxY) => {
         }
       },
 
-      // 🏷️ Labels at 2022
+      // Labels at 2022
       {
         "mark": { "type": "text", "align": "left", "baseline": "middle", "dx": 5, "font": "Arial", "fontSize": 11 },
         "transform": [
@@ -1370,7 +1363,7 @@ const maleMultiLineChart = (selectedAges, maxY) => {
     ],
 
     "layer": [
-      // 🩶 Base gray lines
+      // Base gray lines
       {
         "mark": { "type": "line", "stroke": "#C0C0C0", "strokeWidth": 1.3, "opacity": 0.6 },
         "transform": [{ "filter": `datum.age != '${highlightAge}'` }],
@@ -1394,14 +1387,14 @@ const maleMultiLineChart = (selectedAges, maxY) => {
         }
       },
 
-      // 🧡 Highlight line
+      // Highlight line
       {
         "mark": { "type": "line", "interpolate": "monotone", "strokeWidth": 3, "color": "#E59442" },
         "transform": [{ "filter": `datum.age == '${highlightAge}'` }],
         "encoding": { "x": { "field": "year", "type": "ordinal" }, "y": { "field": "rate", "type": "quantitative" } }
       },
 
-      // 🔹 Visible points for tooltip
+      // Visible points for tooltip
       {
         "mark": { "type": "point", "size": 50, "filled": true, "opacity": 1 },
         "encoding": {
@@ -1421,7 +1414,7 @@ const maleMultiLineChart = (selectedAges, maxY) => {
         }
       },
 
-      // 🏷️ Labels at 2022
+      // Labels at 2022
       {
         "mark": { "type": "text", "align": "left", "baseline": "middle", "dx": 5, "font": "Arial", "fontSize": 11 },
         "transform": [
@@ -1462,8 +1455,7 @@ const maleMultiLineChart = (selectedAges, maxY) => {
 
 
 
-// 🟪 Gender Difference Heatmap
-// ==============================
+// GENDER DIFFERENCE HEATMAP
 const drawGenderDifferenceHeatmap = (containerId) => {
   const spec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -1494,7 +1486,7 @@ const drawGenderDifferenceHeatmap = (containerId) => {
 
     "mark": {
       "type": "rect",
-      "stroke": "#e8e8e8",         // ✅ slightly darker border for better visibility
+      "stroke": "#e8e8e8",         //  slightly darker border for better visibility
       "strokeWidth": 0.8
     },
 
@@ -1518,7 +1510,7 @@ const drawGenderDifferenceHeatmap = (containerId) => {
         "title": "Gender Difference (%)",
         "scale": {
           "domain": [-35, 0, 35],
-          "range": ["#8E24AA", "#FFFFFF", "#CC7722"],  // 💜 female – 🟠 male
+          "range": ["#8E24AA", "#FFFFFF", "#CC7722"],  // female – male
           "clamp": true
         },
 "legend": {
@@ -1537,9 +1529,9 @@ const drawGenderDifferenceHeatmap = (containerId) => {
   "labelFontSize": 12,
   "titleColor": "#333",
   "labelColor": "#333",
-  // ✅ Only show 3 main tick positions
+  //  Only show 3 main tick positions
   "values": [-30, 0, 30],
-  // ✅ One label per side, not repeated
+  //  One label per side, not repeated
   "labelExpr": "datum.value == -30 ? 'Higher for Women' : datum.value == 0 ? 'Equal' : 'Higher for Men'",
   "padding": 10
 }
@@ -1558,7 +1550,7 @@ const drawGenderDifferenceHeatmap = (containerId) => {
       "font": "Arial",
       "view": { "stroke": "transparent", "padding": 0 },
       "legend": {
-        "layout": { "anchor": "middle" } // ✅ centers legend automatically
+        "layout": { "anchor": "middle" } //  centers legend automatically
       },
       "padding": { "bottom": 100 }
     }
@@ -1607,10 +1599,10 @@ const drawWaffleChart = async () => {
         "type": "nominal",
         "scale": {
           "domain": ["female", "male"],
-          "range": ["#8E24AA", "#CC7722"]   // 💜 female = purple, 🟠 male = orange-brown
+          "range": ["#8E24AA", "#CC7722"]   // female = purple, male = orange-brown
         },
         "legend": {
-          "title": null,                    // ✅ removed legend title
+          "title": null,                    // removed legend title
           "orient": "bottom",
           "direction": "horizontal",
           "symbolType": "circle",
@@ -1646,7 +1638,7 @@ const drawWaffleChart = async () => {
 };
 
 
-    // ====== 🧭 SHARED ZOOM CONTROL ======
+    // SHARED ZOOM CONTROL
     let currentZoom = 2400;
     let currentPan = { x: 500, y: 275 };
 
@@ -1656,13 +1648,13 @@ const drawWaffleChart = async () => {
     drawMap("male", selectedYear, "#maleVis");
     drawMap("female", selectedYear, "#femaleVis");
     updateBothCharts(selectedAges);
-drawAreaChart("bar");  // ✅ start with bar chart (number of marriages)
+drawAreaChart("bar");  //  start with bar chart (number of marriages)
 
 drawGenderDifferenceHeatmap("#genderDiffHeatmap");
 drawWaffleChart();
 
 
-    // === YEAR SLIDER ===
+    // YEAR SLIDER
     document.getElementById("yearSlider").addEventListener("input", e => {
       selectedYear = +e.target.value;
       document.getElementById("yearLabel").textContent = selectedYear;
@@ -1673,7 +1665,7 @@ drawWaffleChart();
     });
 
 
-    // === AGE CHECKBOX EVENTS ===
+    // AGE CHECKBOX EVENTS
 document.querySelectorAll("input[name='ageBox']").forEach(cb => {
   cb.addEventListener("change", async () => {
     const allBoxes = document.querySelectorAll("input[name='ageBox']");
@@ -1682,7 +1674,7 @@ document.querySelectorAll("input[name='ageBox']").forEach(cb => {
       .map(c => c.value);
 
     selectedAges = checked;
-    // ✅ Recalculate Y max each time
+    //  Recalculate Y max each time
     await updateBothCharts(selectedAges);
 
 
@@ -1694,8 +1686,7 @@ document.querySelectorAll("input[name='ageBox']").forEach(cb => {
 });
 
 
-    // === SELECT ALL / CLEAR ALL BUTTON ===
-// === SELECT ALL / CLEAR ALL BUTTON ===
+    // SELECT ALL / CLEAR ALL BUTTON
 document.getElementById("selectAllBtn").addEventListener("click", async () => {
   const allBoxes = document.querySelectorAll("input[name='ageBox']");
   const allChecked = Array.from(allBoxes).every(cb => cb.checked);
@@ -1704,7 +1695,7 @@ document.getElementById("selectAllBtn").addEventListener("click", async () => {
   allBoxes.forEach(cb => (cb.checked = !allChecked));
   selectedAges = !allChecked ? [...allAges] : [];
 
-  // 🔁 Update BOTH charts dynamically
+  //  Update BOTH charts dynamically
   await updateBothCharts(selectedAges);
 
   // Update button label
@@ -1727,37 +1718,6 @@ function updateMaps() {
   drawMap("male", selectedYear, "#maleVis");
   drawMap("female", selectedYear, "#femaleVis");
 }
-
-
-// ====== 🖱️ DRAG TO PAN CONTROL (smoothed) ======
-let isDragging = false;
-let startX, startY;
-let deltaX = 0, deltaY = 0;
-
-document.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  startX = e.clientX;
-  startY = e.clientY;
-  document.body.style.cursor = "grabbing";
-});
-
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-  // Apply accumulated pan only once (no flicker)
-  currentPan.x += deltaX * 0.5;
-  currentPan.y += deltaY * 0.5;
-  updateMaps(); // redraw once when drag ends
-  deltaX = 0;
-  deltaY = 0;
-  document.body.style.cursor = "default";
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
-  deltaX = e.clientX - startX;
-  deltaY = e.clientY - startY;
-});
-
 
   </script>
 </body>
