@@ -480,12 +480,9 @@ h2, h3, #controls, #ageCheckboxContainer {
 </div>
 
 
+<h2 id="chartTitle">Male & Female Marriage Rate in Malaysia (2022)</h2>
 
-
-
-    <!-- All your charts, maps, titles, controls go here -->
-    <h2 id="chartTitle">Male & Female Marriage Rate in Malaysia (2022)</h2>
-
+<!-- YEAR SLIDER -->
 <div id="controls" style="text-align:center; margin:20px 0;">
   <label for="yearSlider" style="font-weight:bold;">Year:</label>
   <input type="range" id="yearSlider" min="2017" max="2022" value="2022" step="1"
@@ -493,19 +490,68 @@ h2, h3, #controls, #ageCheckboxContainer {
   <span id="yearLabel" class="small" style="font-weight:bold;">2022</span>
 </div>
 
+<!-- MAP CONTAINER -->
+<div id="mapContainer" style="
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;       /* equal height cards */
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1600px;
+  margin: 0 auto 40px auto;
+  box-sizing: border-box;
+">
 
-
-<div id="mapContainer">
-  <div class="mapBox">
-    <h3 style="text-align:center;">Male Marriage Rate</h3>
-    <div id="maleVis"></div>
+  <!-- LEFT: Male Map -->
+  <div class="halfCard" style="
+    flex: 1 1 48%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    padding: 25px 35px 35px 35px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  ">
+    <h3 style="text-align:center; margin-top:8px;">Male Marriage Rate</h3>
+    <div id="maleVis" style="
+      flex-grow: 1;
+      width: 100%;
+      min-height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "></div>
   </div>
-  <div class="mapBox">
-    <h3 style="text-align:center;">Female Marriage Rate</h3>
-    <div id="femaleVis"></div>
+
+  <!-- RIGHT: Female Map -->
+  <div class="halfCard" style="
+    flex: 1 1 48%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    padding: 25px 35px 35px 35px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  ">
+    <h3 style="text-align:center; margin-top:8px;">Female Marriage Rate</h3>
+    <div id="femaleVis" style="
+      flex-grow: 1;
+      width: 100%;
+      min-height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "></div>
   </div>
 </div>
-<div id="vis"></div>
+
+
 
 <!--  MAP ANALYSIS TEXT (Consistent Layout) -->
 <div id="mapText" class="card" style="
@@ -543,17 +589,73 @@ h2, h3, #controls, #ageCheckboxContainer {
 </div>
 
 <h2>Male & Female Marriage Rate by Age Group (2017–2022)</h2>
-<div id="lineChartContainer">
-  <div class="mapBox">
-    <h3 style="text-align:center;">Male Marriage Rate by Age Group</h3>
-    <div id="maleMultiLineChart"></div>
+
+<!-- CHART CONTAINER -->
+<div id="lineChartContainer" style="
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; 
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1600px;
+  margin: 0 auto 40px auto;
+  box-sizing: border-box;
+">
+
+  <!-- LEFT: Male -->
+  <div id="maleMultiLineContainer" class="halfCard" style="
+    flex: 1 1 48%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    padding: 25px 35px 35px 35px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  ">
+    <h3 style="text-align:center; margin-top:8px;">
+      Male Marriage Rate by Age Group
+    </h3>
+    <div id="maleMultiLineChart" style="
+      flex-grow: 1;
+      width: 100%;
+      min-height: 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "></div>
   </div>
-  <div class="mapBox">
-    <h3 style="text-align:center;">Female Marriage Rate by Age Group</h3>
-    <div id="femaleMultiLineChart"></div>
+
+  <!-- RIGHT: Female -->
+  <div id="femaleMultiLineContainer" class="halfCard" style="
+    flex: 1 1 48%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    padding: 25px 35px 35px 35px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  ">
+    <h3 style="text-align:center; margin-top:8px;">
+      Female Marriage Rate by Age Group
+    </h3>
+    <div id="femaleMultiLineChart" style="
+      flex-grow: 1;
+      width: 100%;
+      min-height: 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "></div>
   </div>
 </div>
-<!--  MULTILINE CHART INSIGHT (Two Columns + Gender Color Highlights) -->
+
+<!-- INSIGHT CARD -->
 <div id="lineChartText" class="card" style="
   max-width: 1600px;
   margin: 40px auto 60px auto;
@@ -566,6 +668,7 @@ h2, h3, #controls, #ageCheckboxContainer {
   color: #333;
   text-align: justify;
 ">
+
 
   <div style="
     column-count: 2;
