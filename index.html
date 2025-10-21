@@ -394,8 +394,7 @@ button:hover {
 /* ===============================
    MISC ALIGNMENT
 ================================= */
-h2, h3, #controls, #ageCheckboxContainer,
-#zoomInBtn, #zoomOutBtn, #resetZoomBtn {
+h2, h3, #controls, #ageCheckboxContainer {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -540,11 +539,6 @@ h2, h3, #controls, #ageCheckboxContainer,
 </div>
 
 
-    <div style="text-align:center; margin:10px 0;">
-      <button id="zoomInBtn">Zoom In (+)</button>
-      <button id="zoomOutBtn">Zoom Out (−)</button>
-      <button id="resetZoomBtn">Reset View</button>
-    </div>
 
 <div id="mapContainer">
   <div class="mapBox">
@@ -842,9 +836,9 @@ h2, h3, #controls, #ageCheckboxContainer,
   box-sizing: border-box;
 ">
   <p style="margin: 2px 0;"><strong>Author:</strong> Beh Zhi Yin</p>
-  <p style="margin: 2px 0;"><strong>Date:</strong> 20 October 2025</p>
+  <p style="margin: 2px 0;"><strong>Date:</strong> 21 October 2025</p>
   <p style="margin: 2px 0;"><strong>Data Sources:</strong> 
-    Department of Statistics Malaysia (DOSM); Natural Earth Data; World Bank Open Data
+    Department of Statistics Malaysia (DOSM);Data.GOV.MY
   </p>
 </footer>
 
@@ -945,54 +939,41 @@ const colorRange = selectedSex === "female"
     "values": [
       // ===== MALE: line ends match the male TEXT coords =====
       // 2017
-      { "year": 2017, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104.6, "lat_end": 3.1 }, // Negeri Sembilan → text (103.2, 3.1)
-{ "year": 2017, "sex": "male", "lon": 117.0, "lat": 5.8, "lon_end": 113.5, "lat_end": 4.5 },
+      { "year": 2017, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104.6, "lat_end": 3.1 }, // Negeri Sembilan → text (105, 3.3)
 
       // 2018
-      { "year": 2018, "sex": "male", "lon": 102.2, "lat": 2.2, "lon_end": 104.3, "lat_end": 2.4 }, // Melaka → text (103.8, 2.4)
-{ "year": 2018, "sex": "male", "lon": 117.0, "lat": 5.8, "lon_end": 113.1, "lat_end": 4.5 },
+      { "year": 2018, "sex": "male", "lon": 102.2, "lat": 2.2, "lon_end": 104.3, "lat_end": 2.4 }, // Melaka → text (105, 2.4)
 
       // 2019
-      { "year": 2019, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104, "lat_end": 3.1 }, // Negeri Sembilan → text (103.2, 3.1)
-{ "year": 2019, "sex": "male", "lon": 117.0, "lat": 5.8, "lon_end": 114, "lat_end": 4.5 },
+      { "year": 2019, "sex": "male", "lon": 101.9, "lat": 2.8, "lon_end": 104, "lat_end": 3.1 }, // Negeri Sembilan → text (104.2, 3.1)
 
       // 2020
       { "year": 2020, "sex": "male", "lon": 100.2, "lat": 6.5, "lon_end": 101.7, "lat_end": 6.7 }, // Perlis → text (101.8, 6.7)
-{ "year": 2020, "sex": "male", "lon": 117.0, "lat": 6, "lon_end": 113, "lat_end": 4 },
 
       // 2021
       { "year": 2021, "sex": "male", "lon": 102.4, "lat": 6.1, "lon_end": 104.8, "lat_end": 6.45 }, // Kelantan → text (104.9, 6.45)
-      { "year": 2021, "sex": "male", "lon": 103.3, "lat": 5.3, "lon_end": 104.7, "lat_end": 5.2 },  // Terengganu → text (104.8, 5.2)
 
       // 2022
       { "year": 2022, "sex": "male", "lon": 102.4, "lat": 6.1, "lon_end": 104.9, "lat_end": 6.3 },  // Kelantan → text (105.0, 6.3)
-      { "year": 2022, "sex": "male", "lon": 103.5, "lat": 2.0, "lon_end": 104.7, "lat_end": 2.2 },  // Johor → text (104.8, 2.2)
 
       // ===== FEMALE: keep lines aligned to female TEXT coords =====
       // 2017
-      { "year": 2017, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.0, "lat_end": 6.3 }, // Kelantan → text (104.0, 6.3)
-      { "year": 2017, "sex": "female", "lon": 101.7, "lat": 2.9, "lon_end": 103.6, "lat_end": 3.2 }, // Putrajaya → text (103.6, 3.2)
+      { "year": 2017, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.0, "lat_end": 6.3 }, // Kelantan → text (104.3, 6.3)
 
       // 2018
-      { "year": 2018, "sex": "female", "lon": 102.0, "lat": 6.0, "lon_end": 104.2, "lat_end": 5.2 }, // Kelantan → text (104.2, 5.2)
-      { "year": 2018, "sex": "female", "lon": 103.0, "lat": 5.0, "lon_end": 104.2, "lat_end": 5.2 }, // Terengganu → text (104.0, 5.2)
-      { "year": 2018, "sex": "female", "lon": 100.4, "lat": 6.2, "lon_end": 103.4, "lat_end": 6.5 }, // Kedah → text (102.2, 6.5)
+      { "year": 2018, "sex": "female", "lon": 102.0, "lat": 6.0, "lon_end": 104.2, "lat_end": 5.2 }, // Terengganu/Kelantan → text (104.2, 5.2)
 
       // 2019
-      { "year": 2019, "sex": "female", "lon": 100.2, "lat": 6.6, "lon_end": 102, "lat_end": 6.8 }, // Perlis → text (102.1, 6.8)
-      { "year": 2019, "sex": "female", "lon": 101.7, "lat": 2.9, "lon_end": 104, "lat_end": 3.1 }, // Putrajaya → text (103.5, 3.1)
+      { "year": 2019, "sex": "female", "lon": 101.7, "lat": 2.9, "lon_end": 104, "lat_end": 3.7 }, // Putrajaya → text (104, 3.7)
 
       // 2020
-      { "year": 2020, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.3, "lat_end": 6.2 }, // Kelantan → text (104.0, 6.2)
-{ "year": 2020, "sex": "female", "lon": 117.0, "lat": 5.7, "lon_end": 113.8, "lat_end": 4.4 },
+      { "year": 2020, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 104.3, "lat_end": 6.2 }, // Kelantan → text (104.5, 6.2)
 
       // 2021
-      { "year": 2021, "sex": "female", "lon": 100.4, "lat": 6.2, "lon_end": 103.9, "lat_end": 6.47 }, // Kedah → text (102.0, 6.4)
-{ "year": 2021, "sex": "female", "lon": 117.0, "lat": 5.8, "lon_end": 108.6, "lat_end": 4.8 },
+      { "year": 2021, "sex": "female", "lon": 100.4, "lat": 6.2, "lon_end": 103.9, "lat_end": 6.4 }, // Kedah → text (104.0, 6.4)
 
       // 2022
       { "year": 2022, "sex": "female", "lon": 102.3, "lat": 6.0, "lon_end": 103.9, "lat_end": 6.2 }, // Kelantan → text (104.0, 6.2)
-{ "year": 2022, "sex": "female", "lon": 117.0, "lat": 5.8, "lon_end": 111.5, "lat_end": 4.4 },
     ]
   },
   "transform": [
@@ -1017,42 +998,30 @@ const colorRange = selectedSex === "female"
 "data": {
   "values": [
 
-      { "year": 2017, "sex": "male", "text": "Negeri Sembilan’s men /n led Peninsular Malaysia./n Rate reached 31.8%", "lon": 105, "lat": 3.3 },
-    { "year": 2017, "sex": "male", "text": "Sabah’s male rate was the lowest./nIt stood at 14.9‰.", "lon": 107, "lat": 4.5 },
+      { "year": 2017, "sex": "male", "text": "Negeri Sembilan's men /n led Peninsular /nMalaysia.", "lon": 105, "lat": 3.3 },
 
-    { "year": 2018, "sex": "male", "text": "Melaka’s registrations /nslowed slightly./nBacklogs delayed /nmany weddings", "lon": 105, "lat": 2.4 },
-    { "year": 2018, "sex": "male", "text": "Sabah’s male rate slipped again./nThe drop was around −0.5‰.", "lon": 106.8, "lat": 4.5 },
+    { "year": 2018, "sex": "male", "text": "Melaka's /n registrations /nslowed slightly./nBacklogs delayed many weddings", "lon": 105, "lat": 2.4 },
 
-    { "year": 2019, "sex": "male", "text": "Early marriage norms still persisted", "lon": 104.2, "lat": 3.1 },
-    { "year": 2019, "sex": "male", "text": "Rural migration reduced local weddings", "lon": 106.5, "lat": 4.5 },
+    { "year": 2019, "sex": "male", "text": "Early marriage norms /nstill persisted", "lon": 104.5, "lat": 3.1 },
 
     { "year": 2020, "sex": "male", "text": "Perlis saw the steepest pandemic drop", "lon": 101.8, "lat": 6.7 },
-    { "year": 2020, "sex": "male", "text": "Sabah’s male rate stagnated./nMCO restrictions halted ceremonies.", "lon": 106.5, "lat": 4.5 },
 
-    { "year": 2021, "sex": "male", "text": "Kelantan was the fastest rebound nationwide.", "lon": 104.9, "lat": 6.45 },
-    { "year": 2021, "sex": "male", "text": "Terengganu’s rate jumped sharply./n Many postponed weddings resumed.", "lon": 104.8, "lat": 5.2 },
+    { "year": 2021, "sex": "male", "text": "Kelantan was the fastest /n rebound nationwide.", "lon": 104.9, "lat": 6.45 },
 
-    { "year": 2022, "sex": "male", "text": "Kelantan remained Malaysia’s highest male rate /n in 2011 & 2022", "lon": 105.0, "lat": 6.3 },
-    { "year": 2022, "sex": "male", "text": "Urban cost pressures /n caused the drop.", "lon": 104.8, "lat": 2.2 },
+    { "year": 2022, "sex": "male", "text": "Kelantan remained Malaysia's /n highest male rate /n in 2011 & 2022", "lon": 105.0, "lat": 6.3 },
 
     // === FEMALE ANNOTATIONS ===
-    { "year": 2017, "sex": "female", "text": "Kelantan’s women marry earlier./n Customs kept rates above 30%", "lon": 104.3, "lat": 6.3 },
-    { "year": 2017, "sex": "female", "text": "Civil service population is mostly single", "lon": 103.9, "lat": 3.2 },
+    { "year": 2017, "sex": "female", "text": "Kelantan's women marry earlier./n Customs kept rates above 30%", "lon": 104.3, "lat": 6.3 },
 
-    { "year": 2018, "sex": "female", "text": "Terengganu and Kelantan led again./nFaith-based norms stayed strong.", "lon": 104.2, "lat": 5.2 },
-    { "year": 2018, "sex": "female", "text": "Kedah’s rise began early./nDigital registration helped rural growth.", "lon": 103.5, "lat": 6.5 },
+    { "year": 2018, "sex": "female", "text": "Terengganu and Kelantan led again./nFaith-based norms /nstayed strong.", "lon": 104.2, "lat": 5.2 },
 
-    { "year": 2019, "sex": "female", "text": "Perlis stayed steady.Many women returned home to register locally.", "lon": 102.1, "lat": 6.8 },
-    { "year": 2019, "sex": "female", "text": "Putrajaya’s modern lifestyle /ncause rate fell slightly.", "lon": 104, "lat": 3.7 },
+    { "year": 2019, "sex": "female", "text": "Putrajaya's modern lifestyle /ncause rate fell slightly.", "lon": 104, "lat": 3.7 },
 
-    { "year": 2020, "sex": "female", "text": "Kelantan adapted to MCO./nOnline solemnisation kept rates steady.", "lon": 104.5, "lat": 6.2 },
-    { "year": 2020, "sex": "female", "text": "Sabah’s rural lockdowns froze marriages./nRates plunged sharply.", "lon": 106, "lat": 4.4 },
+    { "year": 2020, "sex": "female", "text": "Religious weddings continued/n despite MCO", "lon": 104.5, "lat": 6.2 },
 
-    { "year": 2021, "sex": "female", "text": "Kedah’s rural rebound was strong./nIt outpaced industrial states.", "lon": 104.0, "lat": 6.4 },
-    { "year": 2021, "sex": "female", "text": "Sabah’s female rates recovered slowly./nPost-MCO effects still lingered.", "lon": 106, "lat": 4.4 },
+    { "year": 2021, "sex": "female", "text": "Kedah's rural rebound was strong./nIt outpaced industrial states.", "lon": 104.0, "lat": 6.4 },
 
-    { "year": 2022, "sex": "female", "text": "Kelantan’s women remained highest./nTraditions kept rates near 32.3%", "lon": 104.0, "lat": 6.2 },
-    { "year": 2022, "sex": "female", "text": "Sabah improved slightly./nRegistry digitisation boosted access.", "lon": 106, "lat": 4.4 }
+    { "year": 2022, "sex": "female", "text": "Kelantan's women remained highest./nTraditions kept rates near 32.3%", "lon": 104.0, "lat": 6.2 }
   ]
 }
 ,
@@ -1063,9 +1032,9 @@ const colorRange = selectedSex === "female"
 "mark": {
   "type": "text",
   "font": "Arial",
-  "fontSize": 18,
+  "fontSize": 28,
   "align": "left",
-  "color": selectedSex === "male" ? "#003366" : "#000000",
+  "color": "#000000",
   "dx": -4,
   "dy": -2,
   "lineBreak": "/n"
@@ -1166,41 +1135,25 @@ const drawAreaChart = (chartType = "bar") => {
     }
   });
 
-  //  Annotations only for line chart
+  //  Interactive hover points for line chart
 if (isLine) {
-  const annoData = {
-    "values": [
-      { "year": "2020", "rate": 21.6, "label": "Drop from COVID-19 lockdowns." }
-    ]
-  };
-
-  //  Dot exactly on 2020 rate point
+  // Add hover points for all data points
   spec.layer.push({
-    "data": annoData,
-    "mark": { "type": "point", "size": 70, "color": "#E75480" },
-    "encoding": {
-      "x": { "field": "year", "type": "ordinal" },
-      "y": { "field": "rate", "type": "quantitative" }
-    }
-  });
-
-  //  Annotation text just below the 2020 dot
-  spec.layer.push({
-    "data": annoData,
-    "mark": {
-      "type": "text",
-      "align": "center",
-      "baseline": "top",   // places text below
-      "dy": 18,            // vertical offset downward
-      "font": "Arial",
-      "fontSize": 12,
+    "mark": { 
+      "type": "point", 
+      "size": 80, 
       "color": "#E75480",
-      "fontWeight": "bold"
+      "opacity": 0.8,
+      "stroke": "#E75480",
+      "strokeWidth": 2
     },
     "encoding": {
       "x": { "field": "year", "type": "ordinal" },
       "y": { "field": "rate", "type": "quantitative" },
-      "text": { "field": "label" }
+      "tooltip": [
+        { "field": "year", "title": "Year" },
+        { "field": "rate", "title": "Marriage Rate", "format": ".1f" }
+      ]
     }
   });
 }
@@ -1312,8 +1265,10 @@ const femaleMultiLineChart = (selectedAges, maxY) => {
   "field": "year", 
   "type": "ordinal", 
   "title": "Year",
-  "labelAngle": 0,
-  "labelAlign": "center"
+  "axis": {
+    "labelAngle": 0,
+    "labelAlign": "center"
+  }
 },
 "y": {
   "field": "rate",
@@ -1424,8 +1379,10 @@ const maleMultiLineChart = (selectedAges, maxY) => {
   "field": "year", 
   "type": "ordinal", 
   "title": "Year",
-  "labelAngle": 0,
-  "labelAlign": "center"
+  "axis": {
+    "labelAngle": 0,
+    "labelAlign": "center"
+  }
 },
 "y": {
   "field": "rate",
@@ -1771,21 +1728,6 @@ function updateMaps() {
   drawMap("female", selectedYear, "#femaleVis");
 }
 
-document.getElementById("zoomInBtn").addEventListener("click", () => {
-  currentZoom *= 1.2;
-  updateMaps();
-});
-
-document.getElementById("zoomOutBtn").addEventListener("click", () => {
-  currentZoom /= 1.2;
-  updateMaps();
-});
-
-document.getElementById("resetZoomBtn").addEventListener("click", () => {
-  currentZoom = 2400;
-  currentPan = { x: 500, y: 275 };
-  updateMaps();
-});
 
 // ====== 🖱️ DRAG TO PAN CONTROL (smoothed) ======
 let isDragging = false;
@@ -1820,3 +1762,4 @@ document.addEventListener("mousemove", (e) => {
   </script>
 </body>
 </html>
+
